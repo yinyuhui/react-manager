@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.less'
+import 'antd/dist/antd.css';
+import { Button } from 'antd'
 
 function App() {
   return (
@@ -8,6 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <Button>Button</Button>
       </header>
     </div>
   );
