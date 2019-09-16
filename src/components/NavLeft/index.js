@@ -17,7 +17,6 @@ export default class NavLeft extends Component {
 
     renderMenu = (menuList) => {
         return menuList.map(item => {
-            console.log(item.label)
             if(item.children) {
                 return (
                     <SubMenu title={item.label} key={item.key}>
@@ -32,7 +31,7 @@ export default class NavLeft extends Component {
     render() {
         return (
             <div>
-                <div className="logo">
+                <div className="logo flex">
                     <img src="/assets/logo.png" alt="" />
                     <h1>React Manager</h1>
                 </div>
