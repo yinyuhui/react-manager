@@ -77,8 +77,17 @@ module.exports = function(webpackEnv) {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(publicUrl);
 
+  const lessOptions = {
+    javascriptEnabled: true,
+    modifyVars: {
+      'primary-color': '#f9c700',
+      'link-color': '#f9c700',
+      'border-radius-base': '2px',
+    },
+  }
+
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions, preProcessor, lessOptions = {}) => {
     const loaders = [
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
@@ -127,6 +136,7 @@ module.exports = function(webpackEnv) {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
+            ...lessOptions
           },
         }
       );
@@ -482,11 +492,9 @@ module.exports = function(webpackEnv) {
                 {
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modifyVars: {
-                    '@primary-color': '#f9c700'
-                  }
                 },
-                'less-loader'
+                'less-loader',
+                lessOptions
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -502,11 +510,9 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                   modules: true,
                   getLocalIdent: getCSSModuleLocalIdent,
-                  modifyVars: {
-                    '@primary-color': '#f9c700'
-                  }
                 },
-                'less-loader'
+                'less-loader',
+                lessOptions
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
