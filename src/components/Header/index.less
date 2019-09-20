@@ -1,18 +1,42 @@
-.header-top {
-    height: 60px;
-    padding: 0 20px;
-    a {
-        margin-left: 40px;
+.header {
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(66, 66, 66, 0.1);
+    color: #999;
+    font-size: 14px;
+    position: relative;
+    .header-top {
+        height: 60px;
+        padding: 0 20px;
+        a {
+            margin-left: 40px;
+        }
+    }
+    .header-bottom {
+        height: 44px;
+        padding: 0 20px;
+        border-top: 1px solid #f9c700;
+        .breadcrumb {
+            width: 132px;
+            font-size: 18px;
+            color: #666666;
+        }
+        .weather {
+            margin-left: 20px;
+        }
     }
 }
-.header-bottom {
-    height: 40px;
-    padding: 0 20px;
-    border-top: 1px solid #f9c700;
-    .breadcrumb {
-        margin-left: 30px;
-    }
-    .weather {
-        margin-left: 20px;
-    }
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    left: 74px;
+    z-index: 3;
+    border-style: solid;
+    border-color: #fff  transparent transparent;
+    border-width: 10px 12px 12px 12px;
+    width: 0;
+    height: 0;
+    display: block;
 }
+

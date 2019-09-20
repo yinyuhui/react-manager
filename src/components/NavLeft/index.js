@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'antd'
+import { Menu } from 'antd'
 import menuList from '../../config/menuConfig'
 import './index.less'
 import MenuItem from 'antd/lib/menu/MenuItem'

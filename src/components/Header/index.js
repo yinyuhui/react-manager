@@ -1,17 +1,28 @@
 import React, { Component } from 'react'
 import './index.less'
-import dayjs from 'dayjs'
-import axios from 'axios'
 
 export default class Header extends Component {
-    componentWillMount() {
+    async componentWillMount() {
         this.setState(() => ({
             userName: 'yyh',
-            date: dayjs().format('YYYY-MM-DD')
+            date: React.$dayjs().format('YYYY-MM-DD')
         }))
-        axios.get('http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=FK9mkfdQsloEngodbFl4FeY3').then(res => {
-            console.log(res)
+        
+        const cityData = await React.$get('https://restapi.amap.com/v3/ip', {
+            key: 'ee2e38f4a5f94ea4f1ffbcd746933100'
         })
+
+        const weatherData = await React.$get('https://restapi.amap.com/v3/weather/weatherInfo', {
+            key: 'ee2e38f4a5f94ea4f1ffbcd746933100',
+            city: cityData && cityData.adcode
+        })
+
+        const weather = weatherData && weatherData.lives && weatherData.lives[0]
+
+        this.setState(() => ({
+            position: cityData ? `${cityData.province}-${cityData.city}` : '',
+            weather: weather ? `${weather.weather} ${weather.temperature}℃` : '',
+        }))
     }
     
     render() {
@@ -22,10 +33,10 @@ export default class Header extends Component {
                     <a href="#">退出</a>
                 </p>
                 <div className="header-bottom flex flex-b">
-                    <p span="4" className="breadcrumb">首页</p>
+                    <p span="4" className="breadcrumb flex flex-c">首页</p>
                     <p span="20">
                         <span className="date">{this.state.date}</span>
-                        <span className="weather">晴</span>
+                        <span className="weather">{this.state.position} {this.state.weather}</span>
                     </p>
                 </div>
             </div>

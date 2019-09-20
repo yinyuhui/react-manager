@@ -16,7 +16,8 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
+    vertical-align: baseline;
+    box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -46,12 +47,13 @@ table {
     display: flex;
     .nav-left {
         background: #001529;
-        width: 15%;
-        min-width: 180px;
+        width: 16%;
+        min-width: 218px;
         height: 100vh;
     }
     .main {
         flex: 1;
+        background: #f1f3f5;
     }
     .content {
         position: relative;
@@ -61,6 +63,9 @@ table {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+    }
+    .flex-c {
+        justify-content: center;
     }
     .flex-e {
         justify-content: flex-end;
