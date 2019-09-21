@@ -17,10 +17,13 @@ export default class Admin extends Component {
                     </Col>
                     <Col span={20} className="main">
                         <Header />
-                        <div className="main-content">
-                            {this.props.children}
+                        <div className="main-body">
+                            <div className="main-content">
+                                {this.props.children}
+                            </div>
+                            <Footer />
                         </div>
-                        <Footer />
+                        
                     </Col>
                 </Row>
             </div>

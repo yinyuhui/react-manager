@@ -43,29 +43,37 @@ table {
 	border-spacing: 0;
 }
 
+.ant-menu-sub {
+    background: #77b1ae!important;
+}
+
 .container {
     display: flex;
     .nav-left {
-        background: #001529;
+        background: #77b1ae;
         width: 16%;
         min-width: 218px;
         height: 100vh;
+        .ant-menu {
+            background: #77b1ae;
+        }
     }
     .main {
         flex: 1;
         background: #f1f3f5;
+        .main-body{
+            overflow: auto;
+            margin-top: 20px;
+            height: calc(100vh - 124px);
+            .main-content {
+                position: relative;
+                padding: 20px;
+                padding-top: 0;
+                
+            }
+        }
     }
-    .main-content {
-        position: relative;
-        padding: 20px;
-        height: calc(100vh - 222px);
-        min-height: 200px;
-        background: #fff;
-        width: calc(100% - 40px);
-        margin: 24px auto 0 auto;
-        border-radius: 4px;
-        box-shadow: 0 0 10px rgba(66, 66, 66, 0.1);
-    }
+
     .flex {
         display: flex;
         justify-content: flex-start;
