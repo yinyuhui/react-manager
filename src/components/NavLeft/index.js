@@ -39,7 +39,7 @@ export default class NavLeft extends Component {
                     <img src="/assets/logo.png" alt="" />
                     <h1>React Manager</h1>
                 </div>
-                <Menu theme="dark" mode="vertical">
+                <Menu theme="dark" mode="vertical" defaultSelectedKeys={[menuList[0].key]}>
                     { this.state.menuTreeNode }
                 </Menu>
             </div>
