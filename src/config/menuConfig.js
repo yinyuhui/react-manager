@@ -12,10 +12,10 @@ export default [{
         key: '/admin/ui/modals'
     }, {
         label: 'Loading',
-        key: '/admin/ui/loading'
+        key: '/admin/ui/loadings'
     }, {
         label: '通知提醒',
-        key: '/admin/ui/notification'
+        key: '/admin/ui/notifications'
     }, {
         label: '全局Message',
         key: '/admin/ui/messages'
@@ -28,20 +28,20 @@ export default [{
     key: '/admin/form',
     children: [{
         label: '按钮',
-        key: '/admin/ui/buttons'
+        key: '/admin/form/buttons'
     }, {
         label: '弹框',
-        key: '/admin/ui/modals'
+        key: '/admin/form/modals'
     }]
 }, {
     label: '表格',
     key: '/admin/table',
     children: [{
         label: '按钮',
-        key: '/admin/ui/buttons'
+        key: '/admin/table/buttons'
     }, {
         label: '弹框',
-        key: '/admin/ui/modals'
+        key: '/admin/table/modals'
     }]
 }, {
     label: '富文本',

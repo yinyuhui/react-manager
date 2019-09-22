@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import './index.less'
 
 export default class Header extends Component {
-    async componentWillMount() {
+    state = {
+        userName: ''
+    }
+    async componentDidMount() {
         this.setState(() => ({
             userName: 'yyh',
             date: React.$dayjs().format('YYYY-MM-DD')

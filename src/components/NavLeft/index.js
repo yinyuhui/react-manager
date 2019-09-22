@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Menu } from 'antd'
 import menuList from '../../config/menuConfig'
-import './index.less'
 import MenuItem from 'antd/lib/menu/MenuItem'
 import { NavLink } from 'react-router-dom'
+import './index.less'
 
 const { SubMenu } = Menu
 
 export default class NavLeft extends Component {
-    componentWillMount() {
+    state = {
+        menuTreeNode: <div></div>
+    }
+    componentDidMount() {
         const menuTreeNode = this.renderMenu(menuList)
         this.setState(() => ({
             menuTreeNode
