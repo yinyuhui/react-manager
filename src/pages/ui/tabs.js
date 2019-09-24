@@ -3,6 +3,28 @@ import { Card, Tabs, Icon } from 'antd'
 const { TabPane } = Tabs
 
 export default class tabs extends Component {
+    constructor(props) {
+        super(props)
+        const panes = [{
+            title: 'tab1',
+            content: 'tab1',
+            key: 'tab1',
+        },{
+            title: 'tab2',
+            content: 'tab2',
+            key: 'tab2',
+        },{
+            title: 'tab3',
+            content: 'tab3',
+            key: 'tab3',
+        }]
+        this.state = {
+            panes,
+            activeKey: panes[0].key
+        }
+        this.newTabIndex = 0
+
+    } 
     render() {
         return (
             <div>
@@ -21,10 +43,16 @@ export default class tabs extends Component {
                     </Tabs>
                 </Card>
                 <Card title="tabs 页签 可关闭新增">
-                    <Tabs defaultActiveKey="tab1" onChange={this.onTabChange}>
+                    <Tabs 
+                        onChange={this.onChange} 
+                        type="editable-card"
+                        activeKey={this.state.activeKey}
+                        onEdit={this.onEdit}
+                    >
                         {this.state.panes.map(pane => <TabPane
                             key={pane.key} 
                             tab={pane.title} 
+                            
                         >
                             {pane.content}
                         </TabPane>)}
@@ -33,32 +61,46 @@ export default class tabs extends Component {
             </div>
         )
     }
-
-    state = {
-        panes: []
-    }
-
-    componentDidMount = () => {
-        const panes = [{
-            title: 'tab1',
-            content: 'tab1',
-            key: 'tab1',
-        },{
-            title: 'tab2',
-            content: 'tab2',
-            key: 'tab2',
-        },{
-            title: 'tab3',
-            content: 'tab3',
-            key: 'tab3',
-        }]
-        this.setState(() => ({
-            panes
-        }))
-    };
     
 
-    onTabChange = (key) => {
-        console.log(key)
+    onTabChange = (activeKey) => {
+        console.log(activeKey)
     }
+
+    onChange = (activeKey) => {
+        this.setState(() => ({
+            activeKey
+        }))
+    }
+
+    onEdit = (targetKey, action) => {
+        this[action](targetKey);
+    };
+
+    add = () => {
+        const { panes } = this.state;
+        const activeKey = `newTab${this.newTabIndex++}`;
+        panes.push({ title: 'New Tab', content: 'Content of new Tab', key: activeKey });
+        this.setState({ panes, activeKey });
+    };
+    
+    remove = targetKey => {
+        let { activeKey } = this.state;
+        let lastIndex;
+        this.state.panes.forEach((pane, i) => {
+            if (pane.key === targetKey) {
+                lastIndex = i - 1;
+            }
+        });
+        const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+        if (panes.length && activeKey === targetKey) {
+            if (lastIndex >= 0) {
+                activeKey = panes[lastIndex].key;
+            } else {
+                activeKey = panes[0].key;
+            }
+        }
+        this.setState({ panes, activeKey });
+    };
+    
 }
