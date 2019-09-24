@@ -18,14 +18,6 @@ export default class Router extends Component {
                         <Admin>
                             <Switch>
                                 <Route path="/admin/home" component={Home} />
-<<<<<<< HEAD
-                                <Route path="/admin/ui/buttons" component={Buttons} />
-                                <Route path="/admin/ui/loadings" component={Loadings} />
-                                <Route path="/admin/ui/modals" component={Modals} />
-                                <Route path="/admin/ui/notifications" component={Notifications} />
-                                <Route path="/admin/ui/messages" component={Messages} />
-                                <Route path="/admin/ui/tabs" component={Tabs} />
-=======
                                 {
                                     this.getMenuList(UI).map(item => {
                                         return (
@@ -36,7 +28,6 @@ export default class Router extends Component {
                                         )
                                     })
                                 }
->>>>>>> 路由优化
                                 <Route component={NotMatch} />
                             </Switch>
                         </Admin>
