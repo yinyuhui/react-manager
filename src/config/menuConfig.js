@@ -22,6 +22,12 @@ export default [{
     }, {
         label: 'Tab页签',
         key: '/admin/ui/tabs'
+    }, {
+        label: '瀑布图',
+        key: '/admin/ui/gallery'
+    }, {
+        label: '轮播图',
+        key: '/admin/ui/carousel'
     }]
 }, {
     label: '表单',

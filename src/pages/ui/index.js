@@ -4,6 +4,7 @@ import Modals from './modals'
 import Notifications from './notifications'
 import Messages from './messages'
 import Tabs from './tabs'
+import Gallery from './gallery'
 
 export {
     Buttons,
@@ -12,4 +13,5 @@ export {
     Notifications,
     Messages,
     Tabs,
+    Gallery,
 }
