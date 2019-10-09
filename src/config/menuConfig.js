@@ -33,18 +33,18 @@ export default [{
     label: '表单',
     key: '/admin/form',
     children: [{
-        label: '按钮',
-        key: '/admin/form/buttons'
+        label: '登录',
+        key: '/admin/form/login'
     }, {
-        label: '弹框',
-        key: '/admin/form/modals'
+        label: '注册',
+        key: '/admin/form/reg'
     }]
 }, {
     label: '表格',
     key: '/admin/table',
     children: [{
         label: '按钮',
-        key: '/admin/table/buttons'
+        key: '/admin/table/basic'
     }, {
         label: '弹框',
         key: '/admin/table/modals'

@@ -6,6 +6,7 @@ import Login from './pages/login'
 import Admin from './Admin'
 import Home from './pages/Home'
 import * as UI from './pages/ui'
+import * as Form from './pages/form'
 
 
 export default class Router extends Component {
@@ -13,29 +14,43 @@ export default class Router extends Component {
         return (
             <HashRouter>
                 <App>
-                    <Redirect path="/" to="/admin/home" />
-                    <Route path="/login" component={Login} />
-                    <Route path="/admin" render={() => 
-                        <Admin>
-                            <Switch>
-                                {/* 首页 */}
-                                <Route path="/admin/home" component={Home} />
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <Route path="/admin" render={() => 
+                            <Admin>
+                                <Switch>
+                                    {/* 首页 */}
+                                    <Route path="/admin/home" component={Home} />
 
-                                {/* UI */}
-                                {
-                                    this.getMenuList(UI).map(item => {
-                                        return (
-                                            <Route 
-                                                path={`/admin/ui/${item.lower}`} 
-                                                key={`/admin/ui/${item.lower}`} 
-                                                component={UI[item.upper]} />
-                                        )
-                                    })
-                                }
-                                <Route component={NotMatch} />
-                            </Switch>
-                        </Admin>
-                    }></Route>
+                                    {/* UI */}
+                                    {
+                                        this.getMenuList(UI).map(item => {
+                                            return (
+                                                <Route 
+                                                    path={`/admin/ui/${item.lower}`} 
+                                                    key={`/admin/ui/${item.lower}`} 
+                                                    component={UI[item.upper]} />
+                                            )
+                                        })
+                                    }
+
+                                    {/* form */}
+                                    {
+                                        this.getMenuList(Form).map(item => {
+                                            return (
+                                                <Route 
+                                                    path={`/admin/form/${item.lower}`} 
+                                                    key={`/admin/form/${item.lower}`} 
+                                                    component={Form[item.upper]} />
+                                            )
+                                        })
+                                    }
+                                    <Route component={NotMatch} />
+                                </Switch>
+                            </Admin>
+                        }></Route>
+                        <Redirect path="/" to="/admin/home" />
+                    </Switch>
                 </App>      
             </HashRouter>
         )
