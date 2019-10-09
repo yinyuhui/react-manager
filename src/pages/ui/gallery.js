@@ -23,7 +23,8 @@ export default class Gallery extends Component {
 
         const imageList = imgs.map(list => list.map(item => 
             <Card
-                cover={<img src={item.img} onClick={() => this.showLargeImage(item.img)} />}
+                cover={<img src={item.img} alt="" onClick={() => this.showLargeImage(item.img)} />}
+                key={item.title}
             >
                 <Card.Meta title={item.title} description={item.desc} />
             </Card>
@@ -49,7 +50,7 @@ export default class Gallery extends Component {
                     footer={null}	
                     onCancel={() => this.setState({showLargeImage: false})}
                 >
-                    <img src={this.state.imgSrc} style={{ width: '100%' }} />
+                    <img src={this.state.imgSrc} alt="" style={{ width: '100%' }} />
                 </Modal>
             </div>
         )

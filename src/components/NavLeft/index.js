@@ -38,10 +38,12 @@ export default class NavLeft extends Component {
     render() {
         return (
             <div>
-                <div className="logo flex">
-                    <img src="/assets/logo.png" alt="" />
-                    <h1>React Manager</h1>
-                </div>
+                <NavLink to="/admin/home">
+                    <div className="logo flex">
+                        <img src="/assets/logo.png" alt="" />
+                        <h1>React Manager</h1>
+                    </div>
+                </NavLink>
                 <Menu theme="dark" mode="vertical" defaultSelectedKeys={[menuList[0].key]}>
                     { this.state.menuTreeNode }
                 </Menu>

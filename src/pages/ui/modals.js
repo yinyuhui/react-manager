@@ -61,9 +61,9 @@ export default class Modals extends Component {
     }
 
     closeModal = () => {
-        for(let i of [1, 2, 3, 4]) {
+        for(let item of [1, 2, 3, 4]) {
             this.setState(() => ({
-                [`showModal${i}`]: false
+                [`showModal${item}`]: false
             }))
         }
     }

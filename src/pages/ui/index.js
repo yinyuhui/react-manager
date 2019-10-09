@@ -5,6 +5,7 @@ import Notifications from './notifications'
 import Messages from './messages'
 import Tabs from './tabs'
 import Gallery from './gallery'
+import Carousel from './carousel'
 
 export {
     Buttons,
@@ -14,4 +15,5 @@ export {
     Messages,
     Tabs,
     Gallery,
+    Carousel,
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 import App from './App'
 import NotMatch from './pages/notMatch'
 import Login from './pages/login'
@@ -13,11 +13,15 @@ export default class Router extends Component {
         return (
             <HashRouter>
                 <App>
+                    <Redirect path="/" to="/admin/home" />
                     <Route path="/login" component={Login} />
                     <Route path="/admin" render={() => 
                         <Admin>
                             <Switch>
+                                {/* 首页 */}
                                 <Route path="/admin/home" component={Home} />
+
+                                {/* UI */}
                                 {
                                     this.getMenuList(UI).map(item => {
                                         return (
