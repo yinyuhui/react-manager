@@ -1,8 +1,14 @@
+import Home from '../pages/Home'
+import * as UI from '../pages/ui'
+import * as Form from '../pages/form'
+
 export default [{
     label: '首页',
+    modules: Home,
     key: '/admin/home'
 }, {
     label: 'UI',
+    modules: UI,
     key: '/admin/ui',
     children: [{
         label: '按钮',
@@ -32,6 +38,7 @@ export default [{
 }, {
     label: '表单',
     key: '/admin/form',
+    modules: Form,
     children: [{
         label: '登录',
         key: '/admin/form/login'

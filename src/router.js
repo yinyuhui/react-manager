@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import menuList from './config/menuConfig'
 import App from './App'
 import NotMatch from './pages/notMatch'
 import Login from './pages/login'
 import Admin from './Admin'
-import Home from './pages/Home'
-import * as UI from './pages/ui'
-import * as Form from './pages/form'
 
 
 export default class Router extends Component {
@@ -19,30 +17,23 @@ export default class Router extends Component {
                         <Route path="/admin" render={() => 
                             <Admin>
                                 <Switch>
-                                    {/* 首页 */}
-                                    <Route path="/admin/home" component={Home} />
-
-                                    {/* UI */}
                                     {
-                                        this.getMenuList(UI).map(item => {
-                                            return (
-                                                <Route 
-                                                    path={`/admin/ui/${item.lower}`} 
-                                                    key={`/admin/ui/${item.lower}`} 
-                                                    component={UI[item.upper]} />
-                                            )
-                                        })
-                                    }
-
-                                    {/* form */}
-                                    {
-                                        this.getMenuList(Form).map(item => {
-                                            return (
-                                                <Route 
-                                                    path={`/admin/form/${item.lower}`} 
-                                                    key={`/admin/form/${item.lower}`} 
-                                                    component={Form[item.upper]} />
-                                            )
+                                        menuList.map(level1 => {
+                                            if(level1.children) {
+                                                const modules = level1.modules || []
+                                                return this.getMenuList(modules).map(item => <Route 
+                                                    path={`${level1.key}/${item.lower}`} 
+                                                    key={`${level1.key}/${item.lower}`} 
+                                                    component={modules[item.upper]} 
+                                                />)
+                                            }
+                                            else {
+                                                return <Route 
+                                                    path={`${level1.key}`} 
+                                                    key={`${level1.key}`} 
+                                                    component={level1.modules} 
+                                                />
+                                            }
                                         })
                                     }
                                     <Route component={NotMatch} />
