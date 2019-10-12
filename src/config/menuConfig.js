@@ -1,6 +1,7 @@
 import Home from '../pages/Home'
 import * as UI from '../pages/ui'
 import * as Form from '../pages/form'
+import * as Table from '../pages/table'
 
 export default [{
     label: '首页',
@@ -49,11 +50,12 @@ export default [{
 }, {
     label: '表格',
     key: '/admin/table',
+    modules: Table,
     children: [{
-        label: '按钮',
+        label: '基础表格',
         key: '/admin/table/basic'
     }, {
-        label: '弹框',
+        label: '高级表格',
         key: '/admin/table/modals'
     }]
 }, {

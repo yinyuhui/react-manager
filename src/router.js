@@ -6,7 +6,6 @@ import NotMatch from './pages/notMatch'
 import Login from './pages/login'
 import Admin from './Admin'
 
-
 export default class Router extends Component {
     render() {
         return (

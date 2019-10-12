@@ -189,17 +189,6 @@ class Register extends Component {
                                 )
                             }
                         </FormItem>
-                        <FormItem {...formItemLayout} label="起床时间">
-                            {
-                                getFieldDecorator('getUpTime', {
-                                    initialValue: moment('08:30:00', 'HH:mm:ss'),
-                                })(
-                                    <TimePicker
-                                        format="HH:mm:ss"
-                                    />
-                                )
-                            }
-                        </FormItem>
                         <FormItem {...formItemLayout} label="头像">
                             {
                                 getFieldDecorator('userImg'
