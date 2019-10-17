@@ -13,12 +13,12 @@ export default class Header extends Component {
         
         const cityData = await React.$get('https://restapi.amap.com/v3/ip', {
             key: 'ee2e38f4a5f94ea4f1ffbcd746933100'
-        })
+        }, false)
 
         const weatherData = await React.$get('https://restapi.amap.com/v3/weather/weatherInfo', {
             key: 'ee2e38f4a5f94ea4f1ffbcd746933100',
             city: cityData && cityData.adcode
-        })
+        }, false)
 
         const weather = weatherData && weatherData.lives && weatherData.lives[0]
 
