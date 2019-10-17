@@ -71,8 +71,8 @@ export default class Basic extends Component {
         this.getListData()
     }
 
-    async getListData() {
-        const data = await React.$get('/table/basic', this.params)
+    async getListData(showLoading = true) {
+        const data = await React.$get('/table/basic', this.params, showLoading)
         let _this = this
         this.setState({
             dataSource1: data.result.list,
@@ -129,7 +129,7 @@ export default class Basic extends Component {
             okText: '确定',
             onOk: () => {
                 message.success('删除成功')
-                this.getListData()
+                this.getListData(false)
             },
             onCancel: () => {
                 message.info('取消删除')

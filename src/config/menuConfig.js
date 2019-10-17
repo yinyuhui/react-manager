@@ -56,7 +56,7 @@ export default [{
         key: '/admin/table/basic'
     }, {
         label: '高级表格',
-        key: '/admin/table/modals'
+        key: '/admin/table/high'
     }]
 }, {
     label: '富文本',
