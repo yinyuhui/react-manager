@@ -155,13 +155,12 @@ export default class High extends Component {
         this.getListData()
     }
 
-    async getListData(showLoading = true) {
-        const data = await React.$get('/table/high', this.params, showLoading)
-        let _this = this
+    async getListData() {
+        const data = await React.$get('/table/high', this.params)
         this.setState({
             dataSource: data.result.list,
             pagination: pagination(data, (current) => {
-                _this.params.page = current
+                this.params.page = current
                 this.getListData()
             })
         })
@@ -182,7 +181,7 @@ export default class High extends Component {
             cancelText: '取消',
             onOk: () => {
                 message.success('操作成功')
-                this.getListData(false)
+                this.getListData()
             },
             onCancel: () => {
                 message.info('取消删除')

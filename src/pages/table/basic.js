@@ -71,15 +71,14 @@ export default class Basic extends Component {
         this.getListData()
     }
 
-    async getListData(showLoading = true) {
-        const data = await React.$get('/table/basic', this.params, showLoading)
-        let _this = this
+    async getListData() {
+        const data = await React.$get('/table/basic', this.params)
         this.setState({
             dataSource1: data.result.list,
             checkedKeys: [],
             checkedRows: [],
             pagination: pagination(data, (current) => {
-                _this.params.page = current
+                this.params.page = current
                 this.getListData()
             })
         })
@@ -129,7 +128,7 @@ export default class Basic extends Component {
             okText: '确定',
             onOk: () => {
                 message.success('删除成功')
-                this.getListData(false)
+                this.getListData()
             },
             onCancel: () => {
                 message.info('取消删除')

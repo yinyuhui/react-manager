@@ -2,6 +2,7 @@ import Home from '../pages/Home'
 import * as UI from '../pages/ui'
 import * as Form from '../pages/form'
 import * as Table from '../pages/table'
+import City from '../pages/city'
 
 export default [{
     label: '首页',
@@ -61,4 +62,8 @@ export default [{
 }, {
     label: '富文本',
     key: '/admin/rich',
+}, {
+    label: '城市管理',
+    key: '/admin/city',
+    modules: City,
 }]
