@@ -41,7 +41,10 @@ export default class Router extends Component {
                         }></Route>
                         <Redirect path="/" to="/admin/home" />
                     </Switch>
-                </App>      
+                </App>  
+                <div className="my-loading">
+                    <p>加载中，请稍候...</p>
+                </div>    
             </HashRouter>
         )
     }

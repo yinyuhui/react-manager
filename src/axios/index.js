@@ -10,11 +10,17 @@ const getUrl = (url) => {
 }
 
 const showLoading = () => {
-    message.loading('加载中...', 30000)
+    const loading = document.querySelector('.my-loading')
+    loading.style.display = 'block'
+}
+
+const closeLoading = () => {
+    const loading = document.querySelector('.my-loading')
+    loading.style.display = 'none'
 }
 
 axios.interceptors.response.use(resp => {
-    message.destroy()
+    closeLoading()
     let res = resp.data
     if(resp.status === 200) {
         if(res.status === '1' || res.code === 200) {

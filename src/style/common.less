@@ -92,3 +92,27 @@ table {
         justify-content: space-around;
     }
 }
+
+.my-loading {
+    display: none;
+    background: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999999;
+    p {
+        position: fixed;
+        padding: 0 50px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        line-height: 80px;
+        font-size: 16px;
+        color: #fff;
+        background: rgba(0, 0, 0, .75);
+        border-radius: 6px;
+    }
+}
