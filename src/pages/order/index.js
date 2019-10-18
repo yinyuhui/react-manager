@@ -8,7 +8,9 @@ const { RangePicker } = DatePicker;
 
 export default class Order extends Component {
     state = {
-        selectedKey: []
+        selectedKey: [],
+        showCloseModal: false,
+        closeDetail: {}
     }
 
     params = {
@@ -42,11 +44,21 @@ export default class Order extends Component {
     }
 
     async endOrder() {
+        const res = await React.$get('/order/close/detail', {orderSn: this.state.selectedItem.orderSn})
+        this.setState({
+            closeDetail: res.result,
+            showCloseModal: true,
+        })
+    }
+
+    async ensureClose() {
         const res = await React.$get('/order/close', {orderSn: this.state.selectedItem.orderSn})
         res.result ? message.success('操作成功') : message.error('操作失败')
         this.setState({
             selectedKey: [],
-            selectedItem: []
+            selectedItem: [],
+            showCloseModal: false,
+            closeDetail: {},
         })
         this.getData()
     }
@@ -57,8 +69,9 @@ export default class Order extends Component {
     }
 
     render() {
-        const { list, pagination, selectedKey } = this.state
-        const columns = [{
+        const { list, pagination, selectedKey, showCloseModal, closeDetail } = this.state
+        const columns = [
+        {
             title: '订单编号',
             dataIndex: 'orderSn',
             key: 'orderSn',
@@ -98,12 +111,12 @@ export default class Order extends Component {
             title: '开始时间',
             dataIndex: 'startTime',
             key: 'startTime',
-            width: 200,
+            width: 220,
         }, {
             title: '结束时间',
             dataIndex: 'endTime',
             key: 'endTime',
-            width: 200,
+            width: 220,
         }, {
             title: '订单金额',
             dataIndex: 'totalFee',
@@ -139,7 +152,7 @@ export default class Order extends Component {
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}
-                        scroll={{x: 1300}}
+                        scroll={{x: 1340}}
                         rowSelection={rowSelection}
                         onRow={(record, index) => {
                             return {
@@ -152,6 +165,33 @@ export default class Order extends Component {
 
                     </Table>
                 </Card>
+                <Modal 
+                    visible={showCloseModal}
+                    title="结束订单"
+                    okText="确定"
+                    cancelText="取消"
+                    onOk={() => this.ensureClose()}
+                    onCancel={() => this.setState({
+                        showCloseModal: false
+                    })}
+                >
+                    <div className="flex flex-s" style={{height: 50, paddingLeft: 20}}>
+                        <span style={{width: 120, paddingRight: 10}} className="flex flex-e">车辆编号：</span>
+                        <span>{closeDetail.bikeSn}</span>
+                    </div>
+                    <div className="flex flex-s" style={{height: 50, paddingLeft: 20}}>
+                        <span style={{width: 120, paddingRight: 10}} className="flex flex-e">剩余电量：</span>
+                        <span>{closeDetail.electric}%</span>
+                    </div>
+                    <div className="flex flex-s" style={{height: 50, paddingLeft: 20}}>
+                        <span style={{width: 120, paddingRight: 10}} className="flex flex-e">行程开始时间：</span>
+                        <span>{closeDetail.startTime}</span>
+                    </div>
+                    <div className="flex flex-s" style={{height: 50, paddingLeft: 20}}>
+                        <span style={{width: 120, paddingRight: 10}} className="flex flex-e">当前位置：</span>
+                        <span>{closeDetail.location}</span>
+                    </div>
+                </Modal>
             </div>
         )
     }
