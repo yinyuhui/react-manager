@@ -3,6 +3,7 @@ import * as UI from '../pages/ui'
 import * as Form from '../pages/form'
 import * as Table from '../pages/table'
 import City from '../pages/city'
+import Order from '../pages/order'
 
 export default [{
     label: '首页',
@@ -66,4 +67,8 @@ export default [{
     label: '城市管理',
     key: '/admin/city',
     modules: City,
+}, {
+    label: '订单管理',
+    key: '/admin/order',
+    modules: Order,
 }]

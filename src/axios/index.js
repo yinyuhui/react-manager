@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Modal, message } from 'antd'
+import { Modal } from 'antd'
 
 const domain = 'https://www.fastmock.site/mock/1e07088f8d89e91fec628ba9ffa274e9/reactMs/'
 

@@ -5,6 +5,8 @@ import App from './App'
 import NotMatch from './pages/notMatch'
 import Login from './pages/login'
 import Admin from './Admin'
+import Common from './common'
+import OrderDetail from './pages/order/detail'
 
 export default class Router extends Component {
     render() {
@@ -39,6 +41,19 @@ export default class Router extends Component {
                                 </Switch>
                             </Admin>
                         }></Route>
+                        <Route path="/common" render={() => 
+                            <Common>
+                                <Switch>
+                                    <Route 
+                                        path="/common/order/detail/:id" 
+                                        component={OrderDetail} 
+                                    />
+                                    {/* <Route component={NotMatch} /> */}
+                                </Switch>
+                            </Common>
+                        }></Route>
+
+                        {/* 如果是初次进入网站 默认是根目录 此时重定向到首页 */}
                         <Redirect path="/" to="/admin/home" />
                     </Switch>
                 </App>  

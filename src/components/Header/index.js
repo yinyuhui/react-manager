@@ -29,19 +29,31 @@ export default class Header extends Component {
     }
     
     render() {
+        const { common } = this.props
         return (
             <div className="header"> 
-                <p className="header-top flex flex-e">
-                    <span>欢迎，{this.state.userName}</span>
-                    <a href="#">退出</a>
-                </p>
-                <div className="header-bottom flex flex-b">
-                    <p span="4" className="breadcrumb flex flex-c">首页</p>
-                    <p span="20">
-                        <span className="date">{this.state.date}</span>
-                        <span className="weather">{this.state.position} {this.state.weather}</span>
+                <div className={common ? "common-header flex flex-b" : "flex flex-b"}>
+                    {
+                        common ? <div className="common-logo flex">
+                            <img src="./assets/logo.png" alt="" />
+                            <span>React MS</span>
+                        </div> : <div></div>
+                    }
+                    <p className="header-top flex flex-e">
+                        <span>欢迎，{this.state.userName}</span>
+                        <a href="#">退出</a>
                     </p>
                 </div>
+                
+                {
+                    common ? '' : <div className="header-bottom flex flex-b">
+                        <p span="4" className="breadcrumb flex flex-c">首页</p>
+                        <p span="20">
+                            <span className="date">{this.state.date}</span>
+                            <span className="weather">{this.state.position} {this.state.weather}</span>
+                        </p>
+                    </div>
+                }
             </div>
         )
     }

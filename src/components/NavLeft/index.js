@@ -41,7 +41,7 @@ export default class NavLeft extends Component {
                 <NavLink to="/admin/home">
                     <div className="logo flex">
                         <img src="/assets/logo.png" alt="" />
-                        <h1>React Manager</h1>
+                        <h1>React MS</h1>
                     </div>
                 </NavLink>
                 <Menu theme="dark" mode="vertical" defaultSelectedKeys={[menuList[0].key]}>
