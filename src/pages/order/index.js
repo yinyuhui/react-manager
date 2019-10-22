@@ -106,7 +106,11 @@ export default class Order extends Component {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            width: 100,
+            width: 200,
+            render: (status) => {
+                const arr = ['进行中', '进行中（临时锁车）', '行程结束']
+                return arr[status - 1]
+            }
         }, {
             title: '开始时间',
             dataIndex: 'startTime',
@@ -152,7 +156,7 @@ export default class Order extends Component {
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}
-                        scroll={{x: 1340}}
+                        scroll={{x: 1440}}
                         rowSelection={rowSelection}
                         onRow={(record, index) => {
                             return {
