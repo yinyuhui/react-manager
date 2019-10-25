@@ -45,7 +45,7 @@ export default class Router extends Component {
                             <Common>
                                 <Switch>
                                     <Route 
-                                        path="/common/order/detail/:id" 
+                                        path="/common/order/detail/:orderSn" 
                                         component={OrderDetail} 
                                     />
                                     {/* <Route component={NotMatch} /> */}
