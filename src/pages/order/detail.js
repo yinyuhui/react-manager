@@ -44,8 +44,21 @@ export default class OrderDetail extends Component {
                 basicInfo: data.result.basicInfo,
                 travelingTrack: data.result.travelingTrack,
             })
+            this.renderMap()
         }
         
+    }
+
+    renderMap = () => {
+        this.map = new window.BMap.Map('orderDetailMap')
+        this.map.centerAndZoom('武汉', 11)
+        this.map.addControl(new window.BMap.ScaleControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }))
+        this.map.addControl(new window.BMap.NavigationControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }))
+    }
+
+    // 绘制行驶路线
+    drewBikeRoute = (list) => {
+        // this.map.add
     }
 
     render() {
