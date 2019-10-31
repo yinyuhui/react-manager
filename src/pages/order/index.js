@@ -65,7 +65,8 @@ export default class Order extends Component {
 
     goDetail = () => {
         // window.location.href=`/#/common/order/detail`
-        window.location.href=`/#/common/order/detail/${this.state.selectedItem.orderSn}`
+        window.open=`/#/common/order/detail/${this.state.selectedItem.orderSn}`
+        // window.location.href=`/#/common/order/detail/${this.state.selectedItem.orderSn}`
     }
 
     render() {
