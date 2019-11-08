@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { pagination } from '../../utils'
-import { Card, Button, Table, Form, Select, DatePicker, Modal, message }  from 'antd'
+import { Card, Button, Table, Modal, message }  from 'antd'
+import FilterForm from '../../components/FilterForm'
 import moment from 'moment'
-const FormItem = Form.Item
-const { Option } = Select
-const { RangePicker } = DatePicker;
 
 export default class Order extends Component {
     state = {
@@ -17,15 +15,73 @@ export default class Order extends Component {
         page: 1
     }
 
+    filterFormInitValues = {
+        cityId: '',
+        time: [moment().subtract(7, 'day'), moment()],
+        status: '',
+    }
+
+    filterFormList = [{
+        type: 'SELECT',
+        code: 'cityId',
+        label: '城市',
+        initialValue: this.filterFormInitValues.cityId,
+        width: 150,
+        options: [{
+            value: '',
+            label: '全部城市'
+        }, {
+            value: 'bj',
+            label: '北京'
+        }, {
+            value: 'sh',
+            label: '上海'
+        }, {
+            value: 'gz',
+            label: '广州'
+        }, {
+            value: 'sz',
+            label: '深圳'
+        }, {
+            value: 'wh',
+            label: '武汉'
+        }],
+    }, {
+        type: 'RANGE_PICKER',
+        code: 'time',
+        label: '订单时间',
+        initialValue: this.filterFormInitValues.time,
+        width: 230,
+    }, {
+        type: 'SELECT',
+        code: 'status',
+        label: '订单状态',
+        initialValue: this.filterFormInitValues.status,
+        width: 180,
+        options: [{
+            value: '',
+            label: '全部状态'
+        }, {
+            value: '1',
+            label: '进行中'
+        }, {
+            value: '2',
+            label: '进行中（临时锁车）'
+        }, {
+            value: '3',
+            label: '行程结束'
+        }],
+    }]
+
+    
+
     componentDidMount = () => {
       this.getData()
     }
 
-    async getData() {
-        const FilterForm = this.FilterForm.props.form.getFieldsValue()
+    async getData(FilterForm = this.filterFormInitValues) {
         FilterForm.startTime = moment(FilterForm.time[0]).valueOf()
-        FilterForm.endTime = moment(FilterForm.time[1]).valueOf()
-        FilterForm.time = null
+        FilterForm.endTime = moment(FilterForm.time[1]||moment()).valueOf()
         let res = await React.$get('order/list', {...this.params, ...FilterForm})
         this.setState({
             list: res.result.list,
@@ -64,9 +120,8 @@ export default class Order extends Component {
     }
 
     goDetail = () => {
-        // window.location.href=`/#/common/order/detail`
-        window.open=`/#/common/order/detail/${this.state.selectedItem.orderSn}`
-        // window.location.href=`/#/common/order/detail/${this.state.selectedItem.orderSn}`
+        let host = window.location.host.replace('http://')
+        window.open(`http://${host}/#/common/order/detail/${this.state.selectedItem.orderSn}`)
     }
 
     render() {
@@ -142,10 +197,8 @@ export default class Order extends Component {
             <div>
                 <Card>
                     <FilterForm 
-                        getData={this.getData.bind(this)} 
-                        wrappedComponentRef={FilterForm => {
-                            this.FilterForm = FilterForm
-                        }} 
+                        filterFormList={this.filterFormList}
+                        getData={this.getData.bind(this)}
                     />
                 </Card>
                 <Card>
@@ -201,56 +254,3 @@ export default class Order extends Component {
         )
     }
 }
-
-class FilterForm extends Component {
-    render() {
-        const { getData, form } = this.props
-        const { getFieldDecorator, resetFields } = form
-        return <Form layout="inline">
-            <FormItem label="城市">
-                {
-                    getFieldDecorator('cityId', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 160}}>
-                            <Option value="">全部城市</Option>
-                            <Option value="bj">北京</Option>
-                            <Option value="sh">上海</Option>
-                            <Option value="gz">广州</Option>
-                            <Option value="sz">深圳</Option>
-                            <Option value="wh">武汉</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem label="订单时间">
-                {
-                    getFieldDecorator('time', {
-                        initialValue: [moment().subtract(7, 'day'), moment()],
-                    })(
-                        <RangePicker format="YYYY-MM-DD" style={{width: 240}}/>
-                    )
-                }
-            </FormItem>
-            <FormItem label="订单状态">
-                {
-                    getFieldDecorator('status', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 160}}>
-                            <Option value="">全部状态</Option>
-                            <Option value="1">进行中</Option>
-                            <Option value="2">进行中（临时锁车）</Option>
-                            <Option value="3">行程结束</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem>
-                <Button type="primary" onClick={getData}>查询</Button>
-                <Button onClick={() => resetFields()}>重置</Button>
-            </FormItem>
-        </Form>
-    }
-}
-FilterForm = Form.create()(FilterForm) 

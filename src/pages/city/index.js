@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Table, Form, Select, Button, Modal, message } from 'antd'
+import FilterForm from '../../components/FilterForm'
 import { pagination } from '../../utils'
 const FormItem = Form.Item
 const { Option } = Select
@@ -14,11 +15,93 @@ export default class City extends Component {
         page: 1
     }
 
+    filterFormInitValues = {
+        cityId: '',
+        mode: '',
+        opMode: '',
+        authStatus: '',
+    }
+
+    filterFormList = [{
+        type: 'SELECT',
+        code: 'cityId',
+        label: '城市',
+        initialValue: this.filterFormInitValues.cityId,
+        width: 100,
+        options: [{
+            value: '',
+            label: '全部城市'
+        }, {
+            value: 'bj',
+            label: '北京'
+        }, {
+            value: 'sh',
+            label: '上海'
+        }, {
+            value: 'gz',
+            label: '广州'
+        }, {
+            value: 'sz',
+            label: '深圳'
+        }, {
+            value: 'wh',
+            label: '武汉'
+        }],
+    }, {
+        type: 'SELECT',
+        code: 'mode',
+        label: '用车模式',
+        initialValue: this.filterFormInitValues.mode,
+        width: 150,
+        options: [{
+            value: '',
+            label: '全部用车模式'
+        }, {
+            value: '1',
+            label: '指定停车点模式'
+        }, {
+            value: '2',
+            label: '禁停区模式'
+        }],
+    }, {
+        type: 'SELECT',
+        code: 'opMode',
+        label: '运营模式',
+        initialValue: this.filterFormInitValues.opMode,
+        width: 150,
+        options: [{
+            value: '',
+            label: '全部运营模式'
+        }, {
+            value: '1',
+            label: '自营'
+        }, {
+            value: '2',
+            label: '加盟'
+        }],
+    }, {
+        type: 'SELECT',
+        code: 'authStatus',
+        label: '加盟商授权状态',
+        initialValue: this.filterFormInitValues.authStatus,
+        width: 100,
+        options: [{
+            value: '',
+            label: '全部状态'
+        }, {
+            value: '1',
+            label: '已授权'
+        }, {
+            value: '2',
+            label: '未授权'
+        }],
+    }]
+
     componentDidMount = () => {
       this.getData()
     }
 
-    async getData(query={}) {
+    async getData(query = this.filterFormInitValues) {
         const data = await React.$get('city/list', {...this.params, ...query})
         this.setState({
             dataSource: data.result.list,
@@ -104,7 +187,10 @@ export default class City extends Component {
         return (
             <div>
                 <Card>
-                    <FilterForm getData={this.getData.bind(this)} />
+                    <FilterForm 
+                        filterFormList={this.filterFormList} 
+                        getData={this.getData.bind(this)} 
+                    />
                 </Card>
                 <Card>
                     <Button type="primary" onClick={this.setCity}>开通城市</Button>
@@ -131,81 +217,6 @@ export default class City extends Component {
     }
 }
 
-class FilterForm extends Component {
-    query = () => {
-        let queryForm = this.props.form.getFieldsValue()
-        this.props.getData(queryForm)
-    }
-    resetForm = () => {
-        this.props.form.resetFields()
-    }
-    
-    render() {
-        const { getFieldDecorator } = this.props.form
-        return <Form layout="inline">
-            <FormItem label="城市">
-                {
-                    getFieldDecorator('cityId', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 100}}>
-                            <Option value="">全部城市</Option>
-                            <Option value="bj">北京</Option>
-                            <Option value="sh">上海</Option>
-                            <Option value="gz">广州</Option>
-                            <Option value="sz">深圳</Option>
-                            <Option value="wh">武汉</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem label="用车模式">
-                {
-                    getFieldDecorator('mode', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 150}}>
-                            <Option value="">全部用车模式</Option>
-                            <Option value="1">指定停车点模式</Option>
-                            <Option value="2">禁停区模式</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem label="运营模式">
-                {
-                    getFieldDecorator('opMode', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 150}}>
-                            <Option value="">全部运营模式</Option>
-                            <Option value="1">自营</Option>
-                            <Option value="2">加盟</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem label="加盟商授权状态">
-                {
-                    getFieldDecorator('authStatus', {
-                        initialValue: '',
-                    })(
-                        <Select style={{width: 100}}>
-                            <Option value="">全部状态</Option>
-                            <Option value="1">已授权</Option>
-                            <Option value="2">未授权</Option>
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem>
-                <Button type="primary" onClick={this.query}>查询</Button>
-                <Button onClick={this.resetForm}>重置</Button>
-            </FormItem>
-        </Form>
-    }
-}
-FilterForm = Form.create()(FilterForm) 
 
 class OpenCityForm extends Component {
     render() {
