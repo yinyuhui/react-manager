@@ -3,6 +3,7 @@ import { pagination } from '../../utils'
 import { Card, Button, Table, Modal, message }  from 'antd'
 import FilterForm from '../../components/FilterForm'
 import moment from 'moment'
+import { getList } from '../../utils'
 
 export default class Order extends Component {
     state = {
@@ -73,23 +74,14 @@ export default class Order extends Component {
         }],
     }]
 
-    
-
     componentDidMount = () => {
       this.getData()
     }
 
-    async getData(FilterForm = this.filterFormInitValues) {
+    getData(FilterForm = this.filterFormInitValues) {
         FilterForm.startTime = moment(FilterForm.time[0]).valueOf()
         FilterForm.endTime = moment(FilterForm.time[1]||moment()).valueOf()
-        let res = await React.$get('order/list', {...this.params, ...FilterForm})
-        this.setState({
-            list: res.result.list,
-            pagination: pagination(res, (current) => {
-                this.params.page = current
-                this.getData()
-            })
-        })
+        getList(this, 'order/list', {...this.params, ...FilterForm})
     }
     
     handleItemClick(record, index) {

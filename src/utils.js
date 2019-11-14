@@ -1,4 +1,5 @@
-export const pagination = (data, callback) => {
+import React from 'react'
+const pagination = (data, callback) => {
     const { page, pageSize, total } = data.result
     return {
         // page: 1,
@@ -19,3 +20,25 @@ export const pagination = (data, callback) => {
         showQuickJumper: true,
     }
 }   
+
+async function getList(_this, url, params) {
+    let res = await React.$get(url, params)
+    if(res && res.result) {
+        if(!_this.getData) {
+            console.error("列表刷新方法名为 getData !")
+            return 
+        }
+        _this.setState({
+            list: res.result.list,
+            pagination: pagination(res, (current) => {
+                _this.params.page = current
+                _this.getData()
+            })
+        })
+    }
+}
+
+export {
+    getList,
+    pagination
+}

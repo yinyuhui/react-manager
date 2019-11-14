@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Card, Table, Form, Select, Button, Modal, message } from 'antd'
 import FilterForm from '../../components/FilterForm'
-import { pagination } from '../../utils'
+import { pagination, getList } from '../../utils'
 const FormItem = Form.Item
 const { Option } = Select
 
 export default class City extends Component {
     state = {
-        dataSource: [],
+        list: [],
         showSetCity: false, // 开通城市管理弹框
     }
 
@@ -101,15 +101,8 @@ export default class City extends Component {
       this.getData()
     }
 
-    async getData(query = this.filterFormInitValues) {
-        const data = await React.$get('city/list', {...this.params, ...query})
-        this.setState({
-            dataSource: data.result.list,
-            pagination: pagination(data, (current)=> {
-                this.params.page = current
-                this.getData()
-            })
-        })
+    getData(query = this.filterFormInitValues) {
+        getList(this, 'city/list', {...this.params, ...query})
     }
 
     // 开通城市
@@ -132,7 +125,7 @@ export default class City extends Component {
     }
 
     render() {
-        const { dataSource, pagination, showSetCity } = this.state
+        const { list, pagination, showSetCity } = this.state
         const columns = [
             {
                 title: '城市ID',
@@ -198,7 +191,7 @@ export default class City extends Component {
                         style={{marginTop: 20}}
                         bordered={true}
                         columns={columns}
-                        dataSource={dataSource}
+                        dataSource={list}
                         pagination={pagination}
                     />
                 </Card>
