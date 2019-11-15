@@ -5,7 +5,7 @@ import { pagination } from '../../utils'
 const dataSource = [{
         key: 1,
         userName: 'yyh',
-        sex: '1',
+        sex: 2,
         state: '1',
         interest: '1',
         birthday: '1995-11',
@@ -13,9 +13,9 @@ const dataSource = [{
     }, {
         key: 2,
         userName: 'lzd',
-        sex: '1',
+        sex: 1,
         state: '1',
-        interest: '1',
+        interest: '8',
         birthday: '1992-09',
         address: '湖北武汉',
 }]
@@ -141,7 +141,15 @@ export default class Basic extends Component {
         const disableDelete = checkedKeys.length === 0
         const rowSelection = {
             type: 'radio',
-            selectedRowKeys: selectedKey
+            selectedRowKeys: selectedKey,
+            onChange: (selectedRowKeys, selectedRows) => {
+                this.setState({
+                    selectedRecord: selectedRows,
+                    selectedKey: selectedRowKeys
+                }, () => {
+                    console.log(this.state.selectedRecord)
+                })
+            }
         }
         const rowCheck = {
             type: 'checkbox',

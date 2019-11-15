@@ -38,7 +38,15 @@ async function getList(_this, url, params) {
     }
 }
 
+function updateTableSelected(selectedKey, selectedItem) {
+    this.setState({
+        selectedKey,
+        selectedItem
+    })
+}
+
 export {
     getList,
-    pagination
+    pagination,
+    updateTableSelected,
 }

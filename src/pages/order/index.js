@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { pagination } from '../../utils'
+import { updateTableSelected } from '../../utils'
 import { Card, Button, Table, Modal, message }  from 'antd'
 import FilterForm from '../../components/FilterForm'
+import ITable from '../../components/ITable'
 import moment from 'moment'
 import { getList } from '../../utils'
 
@@ -83,16 +84,9 @@ export default class Order extends Component {
         FilterForm.endTime = moment(FilterForm.time[1]||moment()).valueOf()
         getList(this, 'order/list', {...this.params, ...FilterForm})
     }
-    
-    handleItemClick(record, index) {
-        this.setState({
-            selectedKey: [index],
-            selectedItem: record
-        })
-    }
 
     async endOrder() {
-        const res = await React.$get('/order/close/detail', {orderSn: this.state.selectedItem.orderSn})
+        const res = await React.$get('/order/close/detail', {orderSn: this.state.selectedItem[0].orderSn})
         this.setState({
             closeDetail: res.result,
             showCloseModal: true,
@@ -100,7 +94,7 @@ export default class Order extends Component {
     }
 
     async ensureClose() {
-        const res = await React.$get('/order/close', {orderSn: this.state.selectedItem.orderSn})
+        const res = await React.$get('/order/close', {orderSn: this.state.selectedItem[0].orderSn})
         res.result ? message.success('操作成功') : message.error('操作失败')
         this.setState({
             selectedKey: [],
@@ -113,7 +107,7 @@ export default class Order extends Component {
 
     goDetail = () => {
         let host = window.location.host.replace('http://')
-        window.open(`http://${host}/#/common/order/detail/${this.state.selectedItem.orderSn}`)
+        window.open(`http://${host}/#/common/order/detail/${this.state.selectedItem[0].orderSn}`)
     }
 
     render() {
@@ -180,10 +174,6 @@ export default class Order extends Component {
             key: 'userPay',
             width: 100,
         }]
-        const rowSelection = {
-            type: 'radio',
-            selectedRowKeys: selectedKey
-        }
         const btnDisabled = selectedKey.length < 1
         return (
             <div>
@@ -196,24 +186,18 @@ export default class Order extends Component {
                 <Card>
                     <Button type="primary" disabled={btnDisabled} onClick={this.goDetail}>订单详情</Button>
                     <Button type="danger" disabled={btnDisabled} onClick={() => this.endOrder()}>结束订单</Button>
-                    <Table
+                    <ITable
                         style={{marginTop: 20}}
                         bordered
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}
                         scroll={{x: 1440}}
-                        rowSelection={rowSelection}
-                        onRow={(record, index) => {
-                            return {
-                                onClick: () => {
-                                    return this.handleItemClick(record, index)
-                                }
-                            }
-                        }}
-                    >
-
-                    </Table>
+                        selectionType='radio'
+                        selectedRowKeys={this.state.selectedKey}
+                        selectedItems={this.state.selectedItem}
+                        updateSelected = {updateTableSelected.bind(this)}
+                    />
                 </Card>
                 <Modal 
                     visible={showCloseModal}

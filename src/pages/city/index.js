@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Card, Table, Form, Select, Button, Modal, message } from 'antd'
+import { Card, Form, Select, Button, Modal, message } from 'antd'
 import FilterForm from '../../components/FilterForm'
-import { pagination, getList } from '../../utils'
+import ITable from '../../components/ITable'
+import { getList } from '../../utils'
 const FormItem = Form.Item
 const { Option } = Select
 
@@ -187,7 +188,7 @@ export default class City extends Component {
                 </Card>
                 <Card>
                     <Button type="primary" onClick={this.setCity}>开通城市</Button>
-                    <Table 
+                    <ITable 
                         style={{marginTop: 20}}
                         bordered={true}
                         columns={columns}
@@ -209,7 +210,6 @@ export default class City extends Component {
         )
     }
 }
-
 
 class OpenCityForm extends Component {
     render() {
