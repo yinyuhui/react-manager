@@ -14,12 +14,12 @@ class FilterForm extends Component {
                 switch(type) {
                     case 'SELECT': 
                         const { options } = item 
-                        return <FormItem label={label}>
+                        return <FormItem label={label} key={code}>
                             {   
-                                getFieldDecorator([code], {
+                                getFieldDecorator(code, {
                                     initialValue
                                 })(
-                                    <Select style={{ width }} key={code} >
+                                    <Select style={{ width }} >
                                         {
                                             options.map(option => {
                                                 const { value, label } = option
@@ -34,34 +34,34 @@ class FilterForm extends Component {
                             }
                         </FormItem>
                     case 'INPUT': 
-                        return <FormItem label={label}>
+                        return <FormItem label={label} key={code}>
                             {   
-                                getFieldDecorator([code], {
+                                getFieldDecorator(code, {
                                     initialValue
                                 })(
-                                    <Input type="text" placeholder={placeholder} style={{ width }} key={code} />
+                                    <Input type="text" placeholder={placeholder} style={{ width }} />
                                 )
                             }
                         </FormItem>
                     case 'RANGE_PICKER':
                         const { format } = item
-                        return <FormItem label={label}>
+                        return <FormItem label={label} key={code}>
                             {
-                                getFieldDecorator([code], {
+                                getFieldDecorator(code, {
                                     initialValue
                                 })(
-                                    <RangePicker format={format} style={{ width }} key={code} />
+                                    <RangePicker format={format} style={{ width }} />
                                 )
                             }
                         </FormItem>
                     case 'CHECKBOX':
-                        return <FormItem label={label}>
+                        return <FormItem label={label} key={code}>
                             {
-                                getFieldDecorator([code], {
+                                getFieldDecorator(code, {
                                     valuePropName: 'checked',
                                     initialValue
                                 })(
-                                    <Checkbox format={format} style={{ width }} key={code} />
+                                    <Checkbox format={format} style={{ width }} />
                                 )
                             }
                         </FormItem>    

@@ -82,6 +82,7 @@ export default class Order extends Component {
     getData(FilterForm = this.filterFormInitValues) {
         FilterForm.startTime = moment(FilterForm.time[0]).valueOf()
         FilterForm.endTime = moment(FilterForm.time[1]||moment()).valueOf()
+        FilterForm.time = null
         getList(this, 'order/list', {...this.params, ...FilterForm})
     }
 
@@ -188,7 +189,6 @@ export default class Order extends Component {
                     <Button type="danger" disabled={btnDisabled} onClick={() => this.endOrder()}>结束订单</Button>
                     <ITable
                         style={{marginTop: 20}}
-                        bordered
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}

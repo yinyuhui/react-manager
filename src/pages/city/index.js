@@ -190,7 +190,6 @@ export default class City extends Component {
                     <Button type="primary" onClick={this.setCity}>开通城市</Button>
                     <ITable 
                         style={{marginTop: 20}}
-                        bordered={true}
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}

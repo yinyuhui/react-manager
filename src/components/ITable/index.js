@@ -54,6 +54,7 @@ export default class ITable extends Component {
         }
         let rowSelection = selectionType ? (selectionType === 'checkbox' ? rowCheck : row_selection) : null
         return <Table 
+            bordered
             {...this.props}
             rowSelection={rowSelection}
             onRow={(record, index) => {
