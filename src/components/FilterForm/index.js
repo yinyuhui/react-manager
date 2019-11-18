@@ -6,11 +6,15 @@ const { RangePicker } = DatePicker;
 
 class FilterForm extends Component {
     getFormList = () => {
-        const { form, filterFormList } = this.props
+        const { form, filterFormList = [] } = this.props
+        if(filterFormList.length === 0) {
+            console.error('filterFormList 需传入')
+            return null
+        }
         const { getFieldDecorator } = form
         {
             return filterFormList.map(item => {
-                const { type, label, code, width, initialValue, placeholder = '' } = item 
+                const { type, label, code, width, initialValue = '', placeholder = '' } = item 
                 switch(type) {
                     case 'SELECT': 
                         const { options } = item 
@@ -72,6 +76,10 @@ class FilterForm extends Component {
 
     getData = () => {
         let fieldsValue = this.props.form.getFieldsValue()
+        if(!this.props.getData) {
+            console.error('使用 filterForm 时，页面请求列表的方法需传入为 getData')
+            return
+        }
         this.props.getData(fieldsValue)
     }
 
