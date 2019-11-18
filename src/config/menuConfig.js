@@ -2,8 +2,10 @@ import Home from '../pages/Home'
 import * as UI from '../pages/ui'
 import * as Form from '../pages/form'
 import * as Table from '../pages/table'
+import Rich from '../pages/rich'
 import City from '../pages/city'
 import Order from '../pages/order'
+import User from '../pages/user'
 
 export default [{
     label: '首页',
@@ -63,6 +65,7 @@ export default [{
 }, {
     label: '富文本',
     key: '/admin/rich',
+    modules: Rich,
 }, {
     label: '城市管理',
     key: '/admin/city',
@@ -71,4 +74,8 @@ export default [{
     label: '订单管理',
     key: '/admin/order',
     modules: Order,
+}, {
+    label: '员工管理',
+    key: '/admin/user',
+    modules: User,
 }]
