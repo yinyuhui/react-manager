@@ -80,8 +80,8 @@ export default class Order extends Component {
     }
 
     getData(FilterForm = this.filterFormInitValues) {
-        FilterForm.startTime = moment(FilterForm.time[0]).valueOf()
-        FilterForm.endTime = moment(FilterForm.time[1]||moment()).valueOf()
+        FilterForm.startTime = FilterForm.time ? moment(FilterForm.time[0]).valueOf() : FilterForm.startTime
+        FilterForm.endTime = FilterForm.time ? moment(FilterForm.time[1]||moment()).valueOf() : FilterForm.endTime
         FilterForm.time = null
         getList(this, 'order/list', {...this.params, ...FilterForm})
     }
@@ -112,7 +112,7 @@ export default class Order extends Component {
     }
 
     render() {
-        const { list, pagination, selectedKey, showCloseModal, closeDetail } = this.state
+        const { list, pagination, selectedKey, selectedItem, showCloseModal, closeDetail } = this.state
         const columns = [
         {
             title: '订单编号',
@@ -194,8 +194,8 @@ export default class Order extends Component {
                         pagination={pagination}
                         scroll={{x: 1440}}
                         selectionType='radio'
-                        selectedRowKeys={this.state.selectedKey}
-                        selectedItems={this.state.selectedItem}
+                        selectedRowKeys={selectedKey}
+                        selectedItems={selectedItem}
                         updateSelected = {updateTableSelected.bind(this)}
                     />
                 </Card>
