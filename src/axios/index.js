@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
 
 const domain = 'https://www.fastmock.site/mock/1e07088f8d89e91fec628ba9ffa274e9/reactMs/'
 
@@ -22,8 +22,11 @@ const closeLoading = () => {
 axios.interceptors.response.use(resp => {
     closeLoading()
     let res = resp.data
-    if(resp.status === 200) {
-        if(res.status === '1' || res.code === 200) {
+    if(resp.status === 200) {  // HTTP 状态码
+        if(res.status === '1' || res.code === 200) { // 前后端约定状态码
+            if(resp.config.method === 'post') {
+                message[res.result ? 'success' : 'error'](res.result ? '操作成功' : '操作失败')
+            }
             return res
         }
         Modal.info({
@@ -46,6 +49,6 @@ export default class Axios {
         return axios.get(getUrl(url), { params })
     }
     static post(url, data) {
-        return axios.post(getUrl(url), { data })
+        return axios.post(getUrl(url), data)
     }
 }
