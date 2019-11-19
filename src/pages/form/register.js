@@ -28,6 +28,14 @@ class Register extends Component {
         loading: false,
     }
 
+    normFile = e => {
+        console.log('Upload event:', e)
+        if (Array.isArray(e)) {
+            return e
+        }
+        return e && e.fileList
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form
         const { userImg } = this.state
@@ -191,7 +199,10 @@ class Register extends Component {
                         </FormItem>
                         <FormItem {...formItemLayout} label="头像">
                             {
-                                getFieldDecorator('userImg'
+                                getFieldDecorator('userImg', {
+                                    valuePropName: 'fileList',
+                                    getValueFromEvent: this.normFile,
+                                }
                                 )(
                                     <Upload
                                         name="avatar"
@@ -212,7 +223,7 @@ class Register extends Component {
                                     valuePropName: 'checked',
                                     initialValue: true,
                                 })(
-                                    <Checkbox>同意<a href="#">注册协议</a></Checkbox>
+                                    <Checkbox>同意<Button type="link" style={{ padding: 0 }}>注册协议</Button></Checkbox>
                                 )
                             }
                         </FormItem>
@@ -248,6 +259,11 @@ class Register extends Component {
     submit = () => {
         const userInfo = this.props.form.getFieldsValue()
         console.log(userInfo)
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                 console.log('Received values of form: ', values)
+            }
+        })
     }
 }
 

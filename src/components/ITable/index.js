@@ -7,13 +7,13 @@ export default class ITable extends Component {
         if(selectionType === 'checkbox') {
             let checkedKeys = selectedRowKeys || []
             let checkedRows = selectedItems || []
-            let i = checkedKeys.indexOf(index)
+            let i = checkedKeys.indexOf(index + 1)
 
             // 不存在则存入 否则取出 
             let keys = checkedKeys
             let items = checkedRows
             if(i === -1) {
-                keys.push(index)
+                keys.push(index + 1)
                 items.push(record)
             }
             else {
@@ -22,7 +22,7 @@ export default class ITable extends Component {
             }
             updateSelected(keys, items)
         } else {
-            let selectedRowKeys = [index]
+            let selectedRowKeys = [index + 1]
             let selectedItem = [record]
             updateSelected(selectedRowKeys, selectedItem)
         }
@@ -33,7 +33,6 @@ export default class ITable extends Component {
         let row_selection = {
             type: 'radio',
             selectedRowKeys,
-            onChange: this.onSelectChange,
             onChange: (selectedRowKeys, selectedRows) => {
                 updateSelected(selectedRowKeys, selectedRows)
             }

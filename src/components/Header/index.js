@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button } from 'antd'
 import './index.less'
 
 export default class Header extends Component {
@@ -41,7 +42,7 @@ export default class Header extends Component {
                     }
                     <p className="header-top flex flex-e">
                         <span>欢迎，{this.state.userName}</span>
-                        <a href="#">退出</a>
+                        <Button type="link" style={{ padding: 0, marginLeft: 40, }}>退出</Button>
                     </p>
                 </div>
                 

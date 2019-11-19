@@ -60,7 +60,7 @@ export default class RichText extends React.Component{
                     }}
                     footer={null}
                 >
-                    {draftjs(this.state.editorContent)}
+                    {draftjs(editorContent)}
                 </Modal>
             </div>
         );

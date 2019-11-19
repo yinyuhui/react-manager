@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { updateTableSelected } from '../../utils'
-import { Card, Button, Table, Modal, message }  from 'antd'
+import { Card, Button, Modal, message }  from 'antd'
 import FilterForm from '../../components/FilterForm'
 import ITable from '../../components/ITable'
 import moment from 'moment'
