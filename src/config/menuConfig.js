@@ -6,6 +6,7 @@ import Rich from '../pages/rich'
 import City from '../pages/city'
 import Order from '../pages/order'
 import User from '../pages/user'
+import BikeMap from '../pages/bikeMap'
 
 export default [{
     label: '首页',
@@ -78,4 +79,8 @@ export default [{
     label: '员工管理',
     key: '/admin/user',
     modules: User,
+}, {
+    label: '车辆地图',
+    key: '/admin/bikeMap',
+    modules: BikeMap,
 }]
