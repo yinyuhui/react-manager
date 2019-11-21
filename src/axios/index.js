@@ -43,12 +43,21 @@ axios.interceptors.response.use(resp => {
     }
 })
 
+const checkUrl = (url) => {
+    if(!url) {
+        console.error('没有传入 URL，请检查调用情况！')
+        return false
+    }
+    return true
+}
+
 export default class Axios {
     static get(url, params, loading = true) {
         loading && showLoading()
-        return axios.get(getUrl(url), { params })
+        return checkUrl(url) && axios.get(getUrl(url), { params })
     }
     static post(url, data) {
-        return axios.post(getUrl(url), data)
+        checkUrl(url)
+        return checkUrl(url) && axios.post(getUrl(url), data)
     }
 }
