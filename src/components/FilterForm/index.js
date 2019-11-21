@@ -1,5 +1,12 @@
+// filterFormList 表单项
+// type - 表单类型(可扩展) (SELECT - 下拉  INPUT - 输入框  RANGE_PICKER - 时间区间  CHECKBOX - 多选框)
+// options - 下拉列表  label - 展示  value - 值 
+// label - 表单 label  code - 该项对应的 code 用于取值  format - 时间控件需要
+// width  initialValue  placeholder  
+
 import React, { Component } from 'react'
 import { Button, Form, DatePicker, Select, Input, Checkbox}  from 'antd'
+import moment from 'moment'
 const FormItem = Form.Item
 const { Option } = Select
 const { RangePicker } = DatePicker;
@@ -13,11 +20,11 @@ class FilterForm extends Component {
         }
         const { getFieldDecorator } = form
         return filterFormList.map(item => {
-            const { type, label, code, width, initialValue = '', placeholder = '' } = item 
+            const { type, label = '', code, width = 150, initialValue = '', placeholder = '' } = item 
             let formItem = null
             switch(type) {
                 case 'SELECT': 
-                    const { options } = item 
+                    const { options = [] } = item 
                     formItem = <FormItem label={label} key={code}>
                         {   
                             getFieldDecorator(code, {
@@ -50,11 +57,11 @@ class FilterForm extends Component {
                     </FormItem>
                     break;
                 case 'RANGE_PICKER':
-                    const { format } = item
+                    const { format = 'YYYY-MM-DD' } = item
                     formItem =  <FormItem label={label} key={code}>
                         {
                             getFieldDecorator(code, {
-                                initialValue
+                                initialValue: initialValue || [moment().subtract(7, 'day'), moment()]
                             })(
                                 <RangePicker format={format} style={{ width }} />
                             )
@@ -68,7 +75,7 @@ class FilterForm extends Component {
                                 valuePropName: 'checked',
                                 initialValue
                             })(
-                                <Checkbox format={format} style={{ width }} />
+                                <Checkbox style={{ width }} />
                             )
                         }
                     </FormItem>    
