@@ -11,12 +11,14 @@ export default class Home extends Component {
                 <div className="tech flex">
                     <p>技术栈</p>
                     <ul>
-                        <p className="flex">前端框架 ——  React 全家桶 </p>
-                        <p className="flex">UI ——  AntD  less</p>
-                        <p>HTTP ——  axios</p>
-                        <p>版本控制工具 ——  git</p>
+                        <p className="flex">前端框架 —— React 全家桶 </p>
+                        <p className="flex">UI ——  AntD less</p>
+                        <p>HTTP —— axios</p>
+                        <p>版本控制工具 —— git</p>
+                        <p>图表 —— Echarts</p>
+                        <p>地图 —— 百度地图</p>
                     </ul>
-                </div>
+                </div> 
                 
             </div>
         )

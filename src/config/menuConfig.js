@@ -7,6 +7,7 @@ import City from '../pages/city'
 import Order from '../pages/order'
 import User from '../pages/user'
 import BikeMap from '../pages/bikeMap'
+import * as Charts from '../pages/charts'
 
 export default [{
     label: '首页',
@@ -83,4 +84,18 @@ export default [{
     label: '车辆地图',
     key: '/admin/bikeMap',
     modules: BikeMap,
+}, {
+    label: '图表',
+    key: '/admin/charts',
+    modules: Charts,
+    children: [{
+        label: '柱形图',
+        key: '/admin/charts/bar'
+    }, {
+        label: '饼图',
+        key: '/admin/charts/pie'
+    }, {
+        label: '折线图',
+        key: '/admin/charts/line'
+    }]
 }]
