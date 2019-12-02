@@ -1,23 +1,18 @@
 import React from 'react'
 const pagination = (data, callback) => {
-    const { page, pageSize, total } = data.result
+    const { total } = data.result
     return {
-        // page: 1,
-        // offset: 0,
-        // current: 1,
-        // pageSize: 3,
-        // showQuickJumper: true,
-        // showSizeChanger: true,
-        // showTotal: (total) => `共${total}页`,
-        // pageSizeOptions: ['10', '20', '50', '100'],
-        onChange: (current) => {
-            callback(current)
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '50', '100'],
+        onChange: (page, pageSize) => {
+            callback(page, pageSize)
         },
-        current: +page,
-        pageSize,
         total,
-        showTotal: (total) => `共${total}条`,
+        showTotal: (total) => `共 ${total} 条`,
         showQuickJumper: true,
+        onShowSizeChange: (current, size) => {
+            callback(current, size)
+        }
     }
 }   
 
@@ -30,8 +25,9 @@ async function getList(_this, url, params) {
         }
         _this.setState({
             list: res.result.list,
-            pagination: pagination(res, (current) => {
-                _this.params.page = current
+            pagination: pagination(res, (currentPage, pageSize) => {
+                _this.params.limit = pageSize
+                _this.params.offset = (currentPage - 1) * pageSize
                 _this.getData()
             })
         })

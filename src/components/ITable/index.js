@@ -54,12 +54,14 @@ export default class ITable extends Component {
         let rowSelection = selectionType ? (selectionType === 'checkbox' ? rowCheck : row_selection) : null
         return <Table 
             bordered
+            rowKey="id"
             {...this.props}
             rowSelection={rowSelection}
+            // 有个小问题 如果既有行点击事件 又有操作列 会冲突
             onRow={(record, index) => {
                 return {
                     onClick: () => {
-                        return this.handleItemClick(record, index)
+                        return  selectionType && this.handleItemClick(record, index) 
                     }
                 }
             }}

@@ -14,7 +14,8 @@ export default class Order extends Component {
     }
 
     params = {
-        page: 1
+        limit: 10,
+        offset: 0
     }
 
     filterFormInitValues = {
@@ -117,38 +118,31 @@ export default class Order extends Component {
         {
             title: '订单编号',
             dataIndex: 'orderSn',
-            key: 'orderSn',
             width: 100,
             fixed: 'left'
         }, {
             title: '车辆编号',
             dataIndex: 'bikeSn',
-            key: 'bikeSn',
             width: 100,
         }, {
             title: '用户名',
             dataIndex: 'userName',
-            key: 'userName',
             width: 100,
         }, {
             title: '手机号',
             dataIndex: 'mobile',
-            key: 'mobile',
             width: 100,
         }, {
             title: '里程',
             dataIndex: 'distance',
-            key: 'distance',
             width: 100,
         }, {
             title: '行驶时长',
             dataIndex: 'totalTime',
-            key: 'totalTime',
             width: 100,
         }, {
             title: '状态',
             dataIndex: 'status',
-            key: 'status',
             width: 200,
             render: (status) => {
                 const arr = ['进行中', '进行中（临时锁车）', '行程结束']
@@ -157,22 +151,18 @@ export default class Order extends Component {
         }, {
             title: '开始时间',
             dataIndex: 'startTime',
-            key: 'startTime',
             width: 220,
         }, {
             title: '结束时间',
             dataIndex: 'endTime',
-            key: 'endTime',
             width: 220,
         }, {
             title: '订单金额',
             dataIndex: 'totalFee',
-            key: 'totalFee',
             width: 100,
         }, {
             title: '实付金额',
             dataIndex: 'userPay',
-            key: 'userPay',
             width: 100,
         }]
         const btnDisabled = selectedKey.length < 1
@@ -197,6 +187,7 @@ export default class Order extends Component {
                         selectedRowKeys={selectedKey}
                         selectedItems={selectedItem}
                         updateSelected = {updateTableSelected.bind(this)}
+                        rowKey="key"
                     />
                 </Card>
                 <Modal 

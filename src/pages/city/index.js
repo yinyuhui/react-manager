@@ -124,6 +124,10 @@ export default class City extends Component {
         res.result ? message.success('操作成功') : message.error('操作失败')
         this.getData()
     }
+    
+    showDetail = (text, record) => {
+        console.log(text, record)
+    }
 
     render() {
         const { list, pagination, showSetCity } = this.state
@@ -177,6 +181,11 @@ export default class City extends Component {
                 title: '操作人',
                 dataIndex: 'userName',
                 key: 'userName',
+            }, {
+                title: '操作',
+                dataIndex: '',
+                key: 'handle',
+                render: (text, record) => <Button type="link" onClick={() => this.showDetail(text, record)}>查看</Button>
         }]
         return (
             <div>

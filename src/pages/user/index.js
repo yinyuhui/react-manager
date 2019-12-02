@@ -155,7 +155,6 @@ export default class User extends Component {
             {
             title: '员工ID',
             dataIndex: 'id',
-            key: 'id',
         }, {
             title: '姓名',
             dataIndex: 'userName',
@@ -163,31 +162,25 @@ export default class User extends Component {
         }, {
             title: '性别',
             dataIndex: 'sex',
-            key: 'sex',
             render: sex => sex === 1 ? '男' : '女'
         }, {
             title: '兴趣爱好',
             dataIndex: 'interest',
-            key: 'interest',
             render: interest => interestList[interest - 1]
         }, {
             title: '状态',
             dataIndex: 'state',
-            key: 'state',
             render: state => stateList[state - 1]
         }, {
             title: '生日',
             dataIndex: 'birthday',
-            key: 'birthday',
             rowKey: 'birthday'
         }, {
             title: '地址',
             dataIndex: 'address',
-            key: 'address',
         }, {
             title: '入职时间',
             dataIndex: 'time',
-            key: 'time',
         }]
 
         let footer = {}
