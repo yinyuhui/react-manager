@@ -8,20 +8,20 @@ const pagination = (data, callback) => {
             callback(page, pageSize)
         },
         total,
-        showTotal: (total) => `共 ${total} 条`,
+        showTotal: total => `共 ${total} 条`,
         showQuickJumper: true,
         onShowSizeChange: (current, size) => {
             callback(current, size)
         }
     }
-}   
+}
 
 async function getList(_this, url, params) {
     let res = await React.$get(url, params)
-    if(res && res.result) {
-        if(!_this.getData) {
-            console.error("列表刷新方法名为 getData !")
-            return 
+    if (res && res.result) {
+        if (!_this.getData) {
+            console.error('列表刷新方法名为 getData !')
+            return
         }
         _this.setState({
             list: res.result.list,
@@ -29,7 +29,9 @@ async function getList(_this, url, params) {
                 _this.params.limit = pageSize
                 _this.params.offset = (currentPage - 1) * pageSize
                 _this.getData()
-            })
+            }),
+            selectedKey: [],
+            selectedItem: []
         })
     }
 }
@@ -41,8 +43,4 @@ function updateTableSelected(selectedKey, selectedItem) {
     })
 }
 
-export {
-    getList,
-    pagination,
-    updateTableSelected,
-}
+export { getList, pagination, updateTableSelected }

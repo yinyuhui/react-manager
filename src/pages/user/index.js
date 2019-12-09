@@ -16,7 +16,7 @@ export default class User extends Component {
     state = {
         selectedKey: [],
         selectedItem: [],
-        modalVisible: false,
+        modalVisible: false
     }
 
     params = {
@@ -26,37 +26,41 @@ export default class User extends Component {
     filterFormInitValue = {
         userName: '',
         userMobile: '',
-        userDate: [moment().subtract(1, 'month'), moment()],
+        userDate: [moment().subtract(1, 'month'), moment()]
     }
 
-    filterFormList = [{
-        type: 'INPUT',
-        code: 'userName',
-        label: '用户名',
-        width: 160,
-        initialValue: this.filterFormInitValue.userName,
-        placeholder: '请输入用户名'
-    }, {
-        type: 'INPUT',
-        code: 'userMobile',
-        label: '手机号',
-        width: 160,
-        initialValue: this.filterFormInitValue.userMobile,
-        placeholder: '请输入手机号'
-    }, {
-        type: 'RANGE_PICKER',
-        code: 'userDate',
-        label: '入职时间',
-        width: 240,
-        initialValue: this.filterFormInitValue.userDate,
-        format: 'YYYY-MM-DD',
-    }]
+    filterFormList = [
+        {
+            type: 'INPUT',
+            code: 'userName',
+            label: '用户名',
+            width: 160,
+            initialValue: this.filterFormInitValue.userName,
+            placeholder: '请输入用户名'
+        },
+        {
+            type: 'INPUT',
+            code: 'userMobile',
+            label: '手机号',
+            width: 160,
+            initialValue: this.filterFormInitValue.userMobile,
+            placeholder: '请输入手机号'
+        },
+        {
+            type: 'RANGE_PICKER',
+            code: 'userDate',
+            label: '入职时间',
+            width: 240,
+            initialValue: this.filterFormInitValue.userDate,
+            format: 'YYYY-MM-DD'
+        }
+    ]
 
     getData = (query = this.filterFormInitValue) => {
         query.startTime = query.userDate ? moment(query.userDate[0]).valueOf() : query.startTime
         query.endTime = query.userDate ? moment(query.userDate[1]).valueOf() : query.endTime
         query.userDate = null
-        getList(this, 'user/list', {...this.params, ...query})
+        getList(this, 'user/list', { ...this.params, ...query })
         this.setState({
             selectedKey: [],
             selectedItem: [],
@@ -65,11 +69,11 @@ export default class User extends Component {
     }
 
     // 按钮点击事件
-    handleUser = (type) => {
+    handleUser = type => {
         let title = ''
         let modalVisible = true
         const selectedItem = this.state.selectedItem[0]
-        switch(type) {
+        switch (type) {
             case 'add':
                 title = '新增'
                 break
@@ -94,7 +98,7 @@ export default class User extends Component {
                         }).then(() => {
                             this.getData()
                         })
-                    },
+                    }
                 })
                 break
             default:
@@ -102,27 +106,27 @@ export default class User extends Component {
         this.setState({
             title,
             type,
-            modalVisible,
+            modalVisible
         })
     }
 
-    closeModal = () => { 
+    closeModal = () => {
         this.userForm.props.form.resetFields()
-        this.setState({ modalVisible: false }) 
+        this.setState({ modalVisible: false })
     }
 
     // 弹框确认
     handleModalSubmit = () => {
         this.userForm.props.form.validateFields((err, values) => {
-            if(!err) {
+            if (!err) {
                 let selectedItem = this.state.selectedItem[0]
-                switch(this.state.type) {
-                    case 'add': 
+                switch (this.state.type) {
+                    case 'add':
                         React.$post('user/add', values).then(() => {
                             this.getData()
                         })
-                        break;
-                    case 'edit': 
+                        break
+                    case 'edit':
                         React.$post('user/edit', {
                             id: selectedItem.id,
                             ...values
@@ -130,7 +134,7 @@ export default class User extends Component {
                             this.getData()
                         })
                         break
-                    default: 
+                    default:
                 }
                 this.setState({
                     modalVisible: false
@@ -141,78 +145,113 @@ export default class User extends Component {
     }
 
     componentDidMount = () => {
-      this.getData()
+        this.getData()
     }
-    
+
     render() {
-        const { 
-            list = [], pagination, selectedKey = [], selectedItem = [],
-            title = '', modalVisible = false, type = 'add', 
+        const {
+            list = [],
+            pagination,
+            selectedKey = [],
+            selectedItem = [],
+            title = '',
+            modalVisible = false,
+            type = 'add'
         } = this.state
         const btnDisabled = selectedKey.length < 1
-        
+
         const columns = [
             {
-            title: '员工ID',
-            dataIndex: 'id',
-        }, {
-            title: '姓名',
-            dataIndex: 'userName',
-            key: 'userName',
-        }, {
-            title: '性别',
-            dataIndex: 'sex',
-            render: sex => sex === 1 ? '男' : '女'
-        }, {
-            title: '兴趣爱好',
-            dataIndex: 'interest',
-            render: interest => interestList[interest - 1]
-        }, {
-            title: '状态',
-            dataIndex: 'state',
-            render: state => stateList[state - 1]
-        }, {
-            title: '生日',
-            dataIndex: 'birthday',
-            rowKey: 'birthday'
-        }, {
-            title: '地址',
-            dataIndex: 'address',
-        }, {
-            title: '入职时间',
-            dataIndex: 'time',
-        }]
+                title: '员工ID',
+                dataIndex: 'id'
+            },
+            {
+                title: '姓名',
+                dataIndex: 'userName',
+                key: 'userName'
+            },
+            {
+                title: '性别',
+                dataIndex: 'sex',
+                render: sex => (sex === 1 ? '男' : '女')
+            },
+            {
+                title: '兴趣爱好',
+                dataIndex: 'interest',
+                render: interest => interestList[interest - 1]
+            },
+            {
+                title: '状态',
+                dataIndex: 'state',
+                render: state => stateList[state - 1]
+            },
+            {
+                title: '生日',
+                dataIndex: 'birthday',
+                rowKey: 'birthday'
+            },
+            {
+                title: '地址',
+                dataIndex: 'address'
+            },
+            {
+                title: '入职时间',
+                dataIndex: 'time'
+            }
+        ]
 
         let footer = {}
-        if(type === 'detail') {
+        if (type === 'detail') {
             footer = { footer: null }
         }
         return (
             <div>
                 <Card>
-                    <FilterForm 
-                        filterFormList={this.filterFormList} 
+                    <FilterForm
+                        filterFormList={this.filterFormList}
                         getData={this.getData.bind(this)}
                     />
                 </Card>
                 <Card>
-                    <Button type="primary" icon="user-add" onClick={() => this.handleUser('add')}>新增</Button>
-                    <Button type="primary" icon="edit" disabled={btnDisabled} onClick={() => this.handleUser('edit')}>编辑</Button>
-                    <Button type="primary" icon="user" disabled={btnDisabled} onClick={() => this.handleUser('detail')}>查看</Button>
-                    <Button type="danger" icon="user-delete" disabled={btnDisabled} onClick={() => this.handleUser('delete')}>删除</Button>
+                    <Button type="primary" icon="user-add" onClick={() => this.handleUser('add')}>
+                        新增
+                    </Button>
+                    <Button
+                        type="primary"
+                        icon="edit"
+                        disabled={btnDisabled}
+                        onClick={() => this.handleUser('edit')}
+                    >
+                        编辑
+                    </Button>
+                    <Button
+                        type="primary"
+                        icon="user"
+                        disabled={btnDisabled}
+                        onClick={() => this.handleUser('detail')}
+                    >
+                        查看
+                    </Button>
+                    <Button
+                        type="danger"
+                        icon="user-delete"
+                        disabled={btnDisabled}
+                        onClick={() => this.handleUser('delete')}
+                    >
+                        删除
+                    </Button>
                     <ITable
-                        style={{marginTop: 20}}
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}
                         selectionType="radio"
                         selectedRowKeys={selectedKey}
                         selectedItems={selectedItem}
-                        updateSelected = {updateTableSelected.bind(this)}
+                        updateSelected={updateTableSelected.bind(this)}
                         rowKey="id"
                     />
                 </Card>
-                <Modal 
+                <Modal
                     title={title}
                     visible={modalVisible}
                     onOk={this.handleModalSubmit}
@@ -221,10 +260,11 @@ export default class User extends Component {
                     cancelText="取消"
                     {...footer}
                 >
-                    <UserForm 
-                        type={type} 
-                        selectedItem={selectedItem} 
-                        wrappedComponentRef={ userForm => this.userForm = userForm } />
+                    <UserForm
+                        type={type}
+                        selectedItem={selectedItem}
+                        wrappedComponentRef={userForm => (this.userForm = userForm)}
+                    />
                 </Modal>
             </div>
         )
@@ -233,95 +273,94 @@ export default class User extends Component {
 
 class UserForm extends Component {
     render() {
-        const { type, selectedItem, } = this.props
+        const { type, selectedItem } = this.props
         const { getFieldDecorator } = this.props.form
         const formItemLayout = {
-            labelCol: { 
+            labelCol: {
                 xs: 24,
                 sm: 4
             },
-            wrapperCol: { 
+            wrapperCol: {
                 xs: 24,
-                sm: 16 
-            },
+                sm: 16
+            }
         }
-        return <Form>
-            <FormItem label="姓名" {...formItemLayout}>
-                {
-                    type === 'detail' ? selectedItem[0].userName : 
-                    getFieldDecorator('userName', {
-                        initialValue: type === 'add' ? '' : selectedItem[0].userName,
-                        rules: [{
-                            required: true,
-                            message: '请输入姓名'
-                        }]
-                    })(
-                        <Input placeholder="请输入姓名" />
-                    )
-                }
-            </FormItem>
-            <FormItem label="性别" {...formItemLayout}>
-                {
-                    type === 'detail' ? (selectedItem[0].sex === 1 ? '男' : '女') : 
-                    getFieldDecorator('sex', {
-                        initialValue: type === 'add' ? 1 : selectedItem[0].sex 
-                    })(
-                        <RadioGroup >
-                            <Radio value={1}>男</Radio>
-                            <Radio value={2}>女</Radio>
-                        </RadioGroup>
-                    )
-                }
-            </FormItem>
-            <FormItem label="状态" {...formItemLayout}>
-                {
-                    type === 'detail' ? stateList[selectedItem[0].state - 1] : 
-                    getFieldDecorator('state', {
-                        initialValue: type === 'add' ? 3 : selectedItem[0].state 
-                    })(
-                        <Select >
-                            {
-                                stateList.map((item, index) => {
-                                    return <Option value={index + 1} key={item}>{item}</Option>
-                                })
-                            }
-                        </Select>
-                    )
-                }
-            </FormItem>
-            <FormItem label="生日" {...formItemLayout}>
-                {
-                    type === 'detail' ? moment(selectedItem[0].birthday).format('YYYY-MM-DD') : 
-                    getFieldDecorator('birthday', {
-                        initialValue: type === 'add' ? moment() : moment(selectedItem[0].birthday)
-                    })(
-                        <DatePicker
-                            showTime
-                            format="YYYY-MM-DD"
-                        />
-                    )
-                }
-            </FormItem>
-            <FormItem label="地址" {...formItemLayout}>
-                {
-                    type === 'detail' ? selectedItem[0].address : 
-                    getFieldDecorator('address', {
-                        initialValue: type === 'add' ? '' : selectedItem[0].address,
-                        rules: [{
-                            required: true,
-                            message: '请输入地址'
-                        }]
-                    })(
-                        <TextArea 
-                            placeholder="请输入地址" 
-                            autosize= {{
-                                minRows: 3
-                            }} 
-                        />
-                    )
-                }
-            </FormItem>
-        </Form>
+        return (
+            <Form>
+                <FormItem label="姓名" {...formItemLayout}>
+                    {type === 'detail'
+                        ? selectedItem[0].userName
+                        : getFieldDecorator('userName', {
+                              initialValue: type === 'add' ? '' : selectedItem[0].userName,
+                              rules: [
+                                  {
+                                      required: true,
+                                      message: '请输入姓名'
+                                  }
+                              ]
+                          })(<Input placeholder="请输入姓名" />)}
+                </FormItem>
+                <FormItem label="性别" {...formItemLayout}>
+                    {type === 'detail'
+                        ? selectedItem[0].sex === 1
+                            ? '男'
+                            : '女'
+                        : getFieldDecorator('sex', {
+                              initialValue: type === 'add' ? 1 : selectedItem[0].sex
+                          })(
+                              <RadioGroup>
+                                  <Radio value={1}>男</Radio>
+                                  <Radio value={2}>女</Radio>
+                              </RadioGroup>
+                          )}
+                </FormItem>
+                <FormItem label="状态" {...formItemLayout}>
+                    {type === 'detail'
+                        ? stateList[selectedItem[0].state - 1]
+                        : getFieldDecorator('state', {
+                              initialValue: type === 'add' ? 3 : selectedItem[0].state
+                          })(
+                              <Select>
+                                  {stateList.map((item, index) => {
+                                      return (
+                                          <Option value={index + 1} key={item}>
+                                              {item}
+                                          </Option>
+                                      )
+                                  })}
+                              </Select>
+                          )}
+                </FormItem>
+                <FormItem label="生日" {...formItemLayout}>
+                    {type === 'detail'
+                        ? moment(selectedItem[0].birthday).format('YYYY-MM-DD')
+                        : getFieldDecorator('birthday', {
+                              initialValue:
+                                  type === 'add' ? moment() : moment(selectedItem[0].birthday)
+                          })(<DatePicker showTime format="YYYY-MM-DD" />)}
+                </FormItem>
+                <FormItem label="地址" {...formItemLayout}>
+                    {type === 'detail'
+                        ? selectedItem[0].address
+                        : getFieldDecorator('address', {
+                              initialValue: type === 'add' ? '' : selectedItem[0].address,
+                              rules: [
+                                  {
+                                      required: true,
+                                      message: '请输入地址'
+                                  }
+                              ]
+                          })(
+                              <TextArea
+                                  placeholder="请输入地址"
+                                  autosize={{
+                                      minRows: 3
+                                  }}
+                              />
+                          )}
+                </FormItem>
+            </Form>
+        )
     }
 }
 

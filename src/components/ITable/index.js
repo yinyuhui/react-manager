@@ -3,20 +3,24 @@ import { Table } from 'antd'
 
 export default class ITable extends Component {
     handleItemClick(record, index) {
-        let { selectionType, updateSelected, selectedItems, selectedRowKeys } = this.props
-        if(selectionType === 'checkbox') {
+        let {
+            selectionType,
+            updateSelected,
+            selectedItems,
+            selectedRowKeys
+        } = this.props
+        if (selectionType === 'checkbox') {
             let checkedKeys = selectedRowKeys || []
             let checkedRows = selectedItems || []
             let i = checkedKeys.indexOf(index + 1)
 
-            // 不存在则存入 否则取出 
+            // 不存在则存入 否则取出
             let keys = checkedKeys
             let items = checkedRows
-            if(i === -1) {
+            if (i === -1) {
                 keys.push(index + 1)
                 items.push(record)
-            }
-            else {
+            } else {
                 keys.splice(i, 1)
                 items.splice(i, 1)
             }
@@ -44,37 +48,41 @@ export default class ITable extends Component {
                 updateSelected(selectedRowKeys, selectedRows)
             }
         }
-        if(selectionType === false || selectionType === null ) {
+        if (selectionType === false || selectionType === null) {
             selectionType = false
-        } else if(selectionType === 'checkbox') {
+        } else if (selectionType === 'checkbox') {
             row_selection.type = 'checkbox'
         } else {
             row_selection.type = 'radio'
         }
-        let rowSelection = selectionType ? (selectionType === 'checkbox' ? rowCheck : row_selection) : null
-        return <Table 
-            bordered
-            rowKey="id"
-            {...this.props}
-            rowSelection={rowSelection}
-            // 有个小问题 如果既有行点击事件 又有操作列 会冲突
-            onRow={(record, index) => {
-                return {
-                    onClick: () => {
-                        return  selectionType && this.handleItemClick(record, index) 
+        let rowSelection = selectionType
+            ? selectionType === 'checkbox'
+                ? rowCheck
+                : row_selection
+            : null
+        return (
+            <Table
+                style={{ marginTop: 20 }}
+                bordered
+                rowKey="id"
+                {...this.props}
+                rowSelection={rowSelection}
+                // 有个小问题 如果既有行点击事件 又有操作列 会冲突
+                onRow={(record, index) => {
+                    return {
+                        onClick: () => {
+                            return (
+                                selectionType &&
+                                this.handleItemClick(record, index)
+                            )
+                        }
                     }
-                }
-            }}
-        />
+                }}
+            />
+        )
     }
 
     render() {
-        return (
-            <div>
-                {
-                    this.renderTable()
-                }
-            </div>
-        )
+        return <div>{this.renderTable()}</div>
     }
 }
