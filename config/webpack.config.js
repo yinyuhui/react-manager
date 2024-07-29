@@ -80,8 +80,8 @@ module.exports = function(webpackEnv) {
   const lessOptions = {
     javascriptEnabled: true,
     modifyVars: {
-      'primary-color': '#539092',
-      'link-color': '#539092',
+      'primary-color': '#79a3b1',
+      'link-color': '#79a3b1',
       'border-radius-base': '4px',
     },
   }

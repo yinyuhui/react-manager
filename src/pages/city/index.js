@@ -126,7 +126,7 @@ export default class City extends Component {
         this.getData()
     }
 
-    getData(query = this.filterFormInitValues) {
+    getData (query = this.filterFormInitValues) {
         getList(this, 'city/list', { ...this.params, ...query })
     }
 
@@ -137,15 +137,15 @@ export default class City extends Component {
         })
     }
 
-    async submit() {
+    async submit () {
         const cityForm = this.cityForm.props.form.getFieldsValue()
-        const res = await React.$post('city/open', cityForm)
+        await React.$post('city/open', cityForm)
 
         this.setState({
             showSetCity: false
         })
         this.cityForm.props.form.resetFields()
-        res.result ? message.success('操作成功') : message.error('操作失败')
+        // res.result ? message.success('操作成功') : message.error('操作失败')
         this.getData()
     }
 
@@ -153,7 +153,7 @@ export default class City extends Component {
         console.log(text, record)
     }
 
-    render() {
+    render () {
         const { list, pagination, showSetCity } = this.state
         const columns = [
             {
@@ -267,7 +267,7 @@ export default class City extends Component {
 }
 
 class OpenCityForm extends Component {
-    render() {
+    render () {
         const formItemStyle = {
             labelCol: {
                 span: 6

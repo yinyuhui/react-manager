@@ -77,7 +77,7 @@ export default class BikeMap extends Component {
         page: 1
     }
 
-    async getData(query = this.initValue) {
+    async getData (query = this.initValue) {
         query.startTime = moment(query.time[0]).valueOf()
         query.endTime = moment(query.time[1]).valueOf()
         query.time = null
@@ -90,7 +90,7 @@ export default class BikeMap extends Component {
         this.renderMap()
     }
 
-    renderMap() {
+    renderMap () {
         this.map = new window.BMap.Map('bikeMap')
         this.map.addControl(
             new window.BMap.ScaleControl({
@@ -105,7 +105,7 @@ export default class BikeMap extends Component {
         this.drewMapEl()
     }
 
-    drewMapEl() {
+    drewMapEl () {
         const { area, positions } = this.state
         // 服务区
         const areaList = area.map(item => new window.BMap.Point(item.longitude, item.latitude))
@@ -118,7 +118,7 @@ export default class BikeMap extends Component {
         })
 
         const centerPoint = new window.BMap.Point(114.29533492773774, 30.510833519064715)
-        this.map.centerAndZoom(centerPoint, 15)
+        this.map.centerAndZoom(centerPoint, 11)
         this.map.addOverlay(polygon)
 
         positions.forEach(point => {
@@ -145,7 +145,7 @@ export default class BikeMap extends Component {
         this.getData()
     }
 
-    render() {
+    render () {
         const { total } = this.state
         return (
             <div>

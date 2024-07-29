@@ -95,7 +95,7 @@ export default class Order extends Component {
         this.getData()
     }
 
-    getData(FilterForm = this.filterFormInitValues) {
+    getData (FilterForm = this.filterFormInitValues) {
         FilterForm.startTime = FilterForm.time
             ? moment(FilterForm.time[0]).valueOf()
             : FilterForm.startTime
@@ -106,7 +106,7 @@ export default class Order extends Component {
         getList(this, 'order/list', { ...this.params, ...FilterForm })
     }
 
-    async endOrder() {
+    async endOrder () {
         const res = await React.$get('/order/close/detail', {
             orderSn: this.state.selectedItem[0].orderSn
         })
@@ -116,7 +116,7 @@ export default class Order extends Component {
         })
     }
 
-    async ensureClose() {
+    async ensureClose () {
         const res = await React.$get('/order/close', {
             orderSn: this.state.selectedItem[0].orderSn
         })
@@ -135,7 +135,7 @@ export default class Order extends Component {
         window.open(`http://${host}/#/common/order/detail/${this.state.selectedItem[0].orderSn}`)
     }
 
-    render() {
+    render () {
         const {
             list,
             pagination,
@@ -148,13 +148,13 @@ export default class Order extends Component {
             {
                 title: '订单编号',
                 dataIndex: 'orderSn',
-                width: 100,
+                width: 120,
                 fixed: 'left'
             },
             {
                 title: '车辆编号',
                 dataIndex: 'bikeSn',
-                width: 100
+                width: 120
             },
             {
                 title: '用户名',
@@ -203,7 +203,7 @@ export default class Order extends Component {
             {
                 title: '实付金额',
                 dataIndex: 'userPay',
-                width: 100
+                // width: 100
             }
         ]
         const btnDisabled = selectedKey.length < 1
@@ -226,7 +226,7 @@ export default class Order extends Component {
                         columns={columns}
                         dataSource={list}
                         pagination={pagination}
-                        scroll={{ x: 1440 }}
+                        scroll={{ x: 1480 }}
                         selectionType="radio"
                         selectedRowKeys={selectedKey}
                         selectedItems={selectedItem}

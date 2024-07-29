@@ -6,18 +6,19 @@ export default class Header extends Component {
     state = {
         userName: ''
     }
-    async componentDidMount() {
+    async componentDidMount () {
         this.setState(() => ({
             userName: 'yyh',
-            date: React.$dayjs().format('YYYY-MM-DD')
+            date: React.$dayjs().format('YYYY-MM-DD'),
+            currentTab: '首页'
         }))
-        
+
         const cityData = await React.$get('https://restapi.amap.com/v3/ip', {
-            key: 'ee2e38f4a5f94ea4f1ffbcd746933100'
+            key: '41b500f2005cb03b54dba91e48a97257'
         }, false)
 
         const weatherData = await React.$get('https://restapi.amap.com/v3/weather/weatherInfo', {
-            key: 'ee2e38f4a5f94ea4f1ffbcd746933100',
+            key: '41b500f2005cb03b54dba91e48a97257',
             city: cityData && cityData.adcode
         }, false)
 
@@ -28,11 +29,11 @@ export default class Header extends Component {
             weather: weather ? `${weather.weather} ${weather.temperature}℃` : '',
         }))
     }
-    
-    render() {
+
+    render () {
         const { common } = this.props
         return (
-            <div className="header"> 
+            <div className="header">
                 <div className={common ? "common-header flex flex-b" : "flex flex-b"}>
                     {
                         common ? <div className="common-logo flex">
@@ -45,10 +46,10 @@ export default class Header extends Component {
                         <Button type="link" style={{ padding: 0, marginLeft: 40, }}>退出</Button>
                     </p>
                 </div>
-                
+
                 {
                     common ? '' : <div className="header-bottom flex flex-b">
-                        <p span="4" className="breadcrumb flex flex-c">首页</p>
+                        <p span="4" className="breadcrumb flex flex-c">{this.state.currentTab}</p>
                         <p span="20">
                             <span className="date">{this.state.date}</span>
                             <span className="weather">{this.state.position} {this.state.weather}</span>

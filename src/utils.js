@@ -16,8 +16,9 @@ const pagination = (data, callback) => {
     }
 }
 
-async function getList(_this, url, params) {
+async function getList (_this, url, params) {
     let res = await React.$get(url, params)
+
     if (res && res.result) {
         if (!_this.getData) {
             console.error('列表刷新方法名为 getData !')
@@ -36,7 +37,7 @@ async function getList(_this, url, params) {
     }
 }
 
-function updateTableSelected(selectedKey, selectedItem) {
+function updateTableSelected (selectedKey, selectedItem) {
     this.setState({
         selectedKey,
         selectedItem

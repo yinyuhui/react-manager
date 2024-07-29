@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Modal, message } from 'antd'
 
-const domain = 'https://www.fastmock.site/mock/1e07088f8d89e91fec628ba9ffa274e9/reactMs/'
+const domain = 'https://yyh.world/api/reactMs/mock/'
 
 const getUrl = (url) => {
     // 请求时 传入URL 开头可加斜线也可不加 均不会报错
@@ -22,29 +22,30 @@ const closeLoading = () => {
 axios.interceptors.response.use(resp => {
     closeLoading()
     let res = resp.data
-    if(resp.status === 200) {  // HTTP 状态码
-        if(res.status === '1' || res.code === 200) { // 前后端约定状态码
-            if(resp.config.method === 'post') {
+    if (resp.status === 200) {  // HTTP 状态码
+        if (res.status === '1' || res.code === 200) { // 前后端约定状态码
+            if (resp.config.method === 'post') {
                 message[res.result ? 'success' : 'error'](res.result ? '操作成功' : '操作失败')
             }
             return res
         }
         Modal.info({
             title: '提示',
-            content: res.msg || res.desc
+            content: res.msg || res.desc || '网络出错，请稍后再试'
         })
+
     }
     else {
         Modal.info({
             title: '提示',
-            content: resp.desc
+            content: resp.desc || '网络出错，请稍后再试'
         })
         return Promise.reject(resp.result)
     }
 })
 
 const checkUrl = (url) => {
-    if(!url) {
+    if (!url) {
         console.error('没有传入 URL，请检查调用情况！')
         return false
     }
@@ -52,11 +53,11 @@ const checkUrl = (url) => {
 }
 
 export default class Axios {
-    static get(url, params, loading = true) {
+    static get (url, params, loading = true) {
         loading && showLoading()
         return checkUrl(url) && axios.get(getUrl(url), { params })
     }
-    static post(url, data) {
+    static post (url, data) {
         checkUrl(url)
         return checkUrl(url) && axios.post(getUrl(url), data)
     }

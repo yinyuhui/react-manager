@@ -22,7 +22,7 @@ export default class Permission extends Component {
         getList(this, 'permission/list', this.params)
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.getData()
     }
 
@@ -35,13 +35,13 @@ export default class Permission extends Component {
 
     submit = async () => {
         const formData = this.roleForm.props.form.getFieldsValue()
-        let res
         console.log(formData)
         switch (this.state.type) {
             case 'createRole':
-                res = await React.$post('/permission/add-role', formData)
-                console.log(res)
+                await React.$post('/permission/add-role', formData)
+                this.getData()
                 break
+            default:
         }
         this.cancel()
         this.getData()
@@ -52,7 +52,7 @@ export default class Permission extends Component {
         this.roleForm.props.form.resetFields()
     }
 
-    render() {
+    render () {
         const columns = [
             {
                 title: '角色ID',
@@ -118,7 +118,7 @@ export default class Permission extends Component {
 }
 
 class RoleForm extends Component {
-    render() {
+    render () {
         const { selectedItem } = this.props
         const { getFieldDecorator } = this.props.form
         const formItemLayout = {
