@@ -1,5 +1,7 @@
-import Basic from './basic'
-import High from './high'
+import { lazy } from 'react'
+
+const Basic = lazy(() => import('./basic'))
+const High = lazy(() => import('./high'))
 
 export {
     Basic,

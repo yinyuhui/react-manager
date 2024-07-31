@@ -1,11 +1,13 @@
-import Buttons from './buttons'
-import Loadings from './loadings'
-import Modals from './modals'
-import Notifications from './notifications'
-import Messages from './messages'
-import Tabs from './tabs'
-import Gallery from './gallery'
-import Carousel from './carousel'
+import { lazy } from 'react'
+
+const Buttons = lazy(() => import('./buttons'))
+const Loadings = lazy(() => import('./loadings'))
+const Modals = lazy(() => import('./modals'))
+const Notifications = lazy(() => import('./notifications'))
+const Messages = lazy(() => import('./messages'))
+const Tabs = lazy(() => import('./tabs'))
+const Gallery = lazy(() => import('./gallery'))
+const Carousel = lazy(() => import('./carousel'))
 
 export {
     Buttons,

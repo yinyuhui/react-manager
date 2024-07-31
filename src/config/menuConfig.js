@@ -1,14 +1,18 @@
-import Home from '../pages/Home'
+import { lazy } from 'react'
+
 import * as UI from '../pages/ui'
 import * as Form from '../pages/form'
 import * as Table from '../pages/table'
-import Rich from '../pages/rich'
-import City from '../pages/city'
-import Order from '../pages/order'
-import User from '../pages/user'
-import BikeMap from '../pages/bikeMap'
 import * as Charts from '../pages/charts'
-import Permission from '../pages/permission'
+
+const Home = lazy(() => import('../pages/Home'))
+const Rich = lazy(() => import('../pages/rich'))
+const City = lazy(() => import('../pages/city'))
+const Order = lazy(() => import('../pages/order'))
+const User = lazy(() => import('../pages/user'))
+const BikeMap = lazy(() => import('../pages/bikeMap'))
+const Permission = lazy(() => import('../pages/permission'))
+
 
 export default [
     {

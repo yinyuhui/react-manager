@@ -1,6 +1,8 @@
-import Bar from './bar'
-import Pie from './pie'
-import Line from './line'
+import { lazy } from 'react'
+
+const Bar = lazy(() => import('./bar'))
+const Pie = lazy(() => import('./pie'))
+const Line = lazy(() => import('./line'))
 
 export {
     Bar,
