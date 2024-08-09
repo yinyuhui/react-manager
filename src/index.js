@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import 'antd/dist/antd.less'
-import './style/common.less'
+// import 'antd/dist/antd.less'
+// import 'antd/lib/style/themes/index.less';
+import './style/index.less'
 
 import axios from './axios'
 import dayjs from 'dayjs'
