@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Form, Select, Button, Modal, message } from 'antd'
+import { Card, Form, Select, Button, Modal } from 'antd'
 import FilterForm from '../../components/FilterForm'
 import ITable from '../../components/ITable'
 import { getList } from '../../utils'
